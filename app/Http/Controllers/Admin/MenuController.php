@@ -57,4 +57,29 @@ class MenuController extends Controller
         $menu->delete();
         return redirect()->route('admin.menus.index')->with('success', 'Menu đã được xóa!');
     }
+
+    public function reorder(Request $request)
+    {
+        $list = json_decode($request->input('list'), true);
+        $this->updateMenuHierarchy($list);
+
+        return response()->json(['status' => 'success']);
+    }
+
+    protected function updateMenuHierarchy($list, $parentId = null)
+    {
+        foreach ($list as $index => $item) {
+            $menu = Menu::find($item['id']);
+            if ($menu) {
+                $menu->update([
+                    'parent_id' => $parentId,
+                    'order' => $index + 1
+                ]);
+
+                if (isset($item['children'])) {
+                    $this->updateMenuHierarchy($item['children'], $menu->id);
+                }
+            }
+        }
+    }
 }

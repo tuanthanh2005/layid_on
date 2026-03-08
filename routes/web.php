@@ -34,6 +34,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Menu Management
     Route::resource('menus', MenuController::class)->names('admin.menus');
+    Route::post('menus/reorder', [MenuController::class, 'reorder'])->name('admin.menus.reorder');
 });
 
 Route::middleware('guest')->group(function () {
