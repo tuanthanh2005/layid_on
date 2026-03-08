@@ -26,7 +26,7 @@
                         <td class="px-4 py-3">
                             <div class="d-flex align-items-center gap-3">
                                 @if($post->thumbnail)
-                                    <img src="{{ $post->thumbnail }}" alt="" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                    <img src="{{ asset($post->thumbnail) }}" alt="" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;">
                                 @elseif($post->icon && $post->color)
                                     <div style="width: 60px; height: 40px; background: {{ $post->color }}; border-radius: 4px; display:flex; align-items:center; justify-content:center; color:white;">
                                         <i class="{{ $post->icon }}" style="font-size: 1.2rem;"></i>

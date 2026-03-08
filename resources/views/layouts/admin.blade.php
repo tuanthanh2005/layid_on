@@ -283,6 +283,12 @@
                 <li class="menu-item {{ request()->routeIs('admin.menus.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.menus.index') }}"><i data-lucide="menu" size="18"></i> Quản lý Menu</a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.posts.index') }}"><i data-lucide="file-text" size="18"></i> Quản lý trang chủ</a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.utilities.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.utilities.index') }}"><i data-lucide="blocks" size="18"></i> Quản lý tiện ích</a>
+                </li>
                 @endif
                 @if(Auth::user()->role === 'admin')
                 <li class="menu-item">

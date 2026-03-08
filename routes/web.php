@@ -35,6 +35,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     // Menu Management
     Route::resource('menus', MenuController::class)->names('admin.menus');
     Route::post('menus/reorder', [MenuController::class, 'reorder'])->name('admin.menus.reorder');
+
+    // Post Management
+    Route::resource('posts', \App\Http\Controllers\Admin\PostController::class)->names('admin.posts');
+
+    // Utility / Tool Management
+    Route::resource('utilities', \App\Http\Controllers\Admin\UtilityController::class)->names('admin.utilities');
 });
 
 Route::middleware('guest')->group(function () {
@@ -67,3 +73,6 @@ Route::get('/courses', Courses::class)->name('courses.index');
 Route::get('/courses/javascript-mastery', CourseDetail::class)->name('courses.show');
 
 Route::get('/placeholder/{type}', Feature::class)->name('placeholder');
+
+// Post detail
+Route::get('/bai-viet/{slug}', App\Livewire\PostDetail::class)->name('post.show');

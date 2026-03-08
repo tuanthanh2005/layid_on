@@ -8,7 +8,7 @@
     </a>
 </div>
 
-<form action="{{ route('admin.posts.store') }}" method="POST">
+<form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     
     <div class="row">
@@ -82,6 +82,14 @@
                     </div>
 
                     <div class="form-check form-switch form-switch-lg mb-3 d-flex justify-content-between px-0 align-items-center">
+                        <label class="form-check-label text-dark fw-medium" for="toggle-trending">
+                            <span class="badge bg-danger text-white me-2 px-2 py-1">Hot</span>
+                            Khu vực Trending (Thịnh hành)
+                        </label>
+                        <input class="form-check-input ms-3 rounded-pill" type="checkbox" name="is_trending" id="toggle-trending" value="1" {{ old('is_trending') ? 'checked' : '' }}>
+                    </div>
+
+                    <div class="form-check form-switch form-switch-lg mb-3 d-flex justify-content-between px-0 align-items-center">
                         <label class="form-check-label text-dark fw-medium" for="toggle-interested">
                             <span class="badge bg-warning text-dark me-2 px-2 py-1">Sidebar 2</span>
                             Có thể bạn quan tâm
@@ -115,9 +123,14 @@
                         <input type="text" name="color" class="form-control" value="{{ old('color', 'linear-gradient(135deg, #38bdf8, #0ea5e9)') }}" placeholder="VD: #1d4ed8">
                     </div>
 
-                    <div class="mb-0">
-                        <label class="form-label text-muted">Link Ảnh Trực Tiếp (bỏ qua Icon)</label>
-                        <input type="url" name="thumbnail" class="form-control" value="{{ old('thumbnail') }}" placeholder="https://domain.com/image.jpg">
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Tải Ảnh Lên (Khuyên dùng)</label>
+                        <input type="file" name="thumbnail_file" class="form-control" accept="image/*">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Hoặc Link Ảnh (URL) - Tuỳ chọn</label>
+                        <input type="text" name="thumbnail" class="form-control" value="{{ old('thumbnail') }}" placeholder="https://domain.com/image.jpg">
                     </div>
                 </div>
             </div>
@@ -155,20 +168,28 @@
 }
 </style>
 
-<!-- CKEditor 5 -->
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<!-- jQuery & Summernote (100% Free Full Features) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-    ClassicEditor
-        .create( document.querySelector( '#content-editor' ), {
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'undo', 'redo' ]
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
+    $(document).ready(function() {
+        $('#content-editor').summernote({
+            placeholder: 'Nhập nội dung bài viết...',
+            height: 500,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
 </script>
-<style>
-.ck-editor__editable_inline {
-    min-height: 400px;
-}
-</style>
 @endsection

@@ -8,6 +8,20 @@ class Home extends Component
 {
     public function render()
     {
-        return view('livewire.home');
+        $featuredPost = \App\Models\Post::where('status', true)->where('is_featured', true)->latest()->first();
+        $gridPosts = \App\Models\Post::where('status', true)->where('is_grid', true)->latest()->take(4)->get();
+        $recommendedPosts = \App\Models\Post::where('status', true)->where('is_recommended', true)->latest()->take(5)->get();
+        $interestedPosts = \App\Models\Post::where('status', true)->where('is_interested', true)->latest()->take(5)->get();
+        $videoPosts = \App\Models\Post::where('status', true)->where('is_video', true)->latest()->take(3)->get();
+        $trendingPosts = \App\Models\Post::where('status', true)->where('is_trending', true)->latest()->take(10)->get();
+        
+        // Bài viết mới nhất (List Post) - Lấy tất cả bài viết mới nhất để khu vực này không bị trống
+        $latestPosts = \App\Models\Post::where('status', true)->latest()->take(10)->get();
+
+        $utilities = \App\Models\Utility::where('status', true)->orderBy('order_index')->get();
+
+        return view('livewire.home', compact(
+            'featuredPost', 'gridPosts', 'recommendedPosts', 'interestedPosts', 'videoPosts', 'latestPosts', 'utilities', 'trendingPosts'
+        ));
     }
 }
