@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trang web chuyên cung cấp tool công nghệ: lấy mã 2FA, AI tips, chia sẻ thủ thuật.">
+    <title>Tech Tools - Trang chuyên Công nghệ & AI</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body class="dark-theme">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fa-solid fa-microchip logo-icon"></i>
+                <span class="logo-text">Tech<span class="highlight">Tools</span></span>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm công cụ, bài viết...">
+                <button class="search-btn"><i class="fa-solid fa-search"></i></button>
+            </div>
+
+            <div class="auth-buttons" id="auth-container">
+                <!-- Managed by MVC View -->
+                <button class="btn btn-outline" onclick="app.navigate('/login')">Đăng nhập</button>
+                <button class="btn btn-primary" onclick="app.navigate('/register')">Đăng ký</button>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="app-nav">
+        <div class="container nav-container">
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#" onclick="app.navigate('/'); return false;" class="active"><i class="fa-solid fa-home"></i> Trang chủ</a></li>
+                <li><a href="#" onclick="app.navigate('/tools/2fa'); return false;"><i class="fa-solid fa-shield-halved"></i> 2FA Code</a></li>
+                <li><a href="#" onclick="app.navigate('/tools/gemini'); return false;"><i class="fa-solid fa-robot"></i> Gemini Free/Watermark</a></li>
+                <li><a href="#" onclick="app.navigate('/blog'); return false;"><i class="fa-solid fa-book"></i> Blog & Mẹo AI</a></li>
+                <li><a href="#" onclick="app.navigate('/services/buff'); return false;"><i class="fa-solid fa-fire"></i> Dịch vụ Mạng Xã Hội</a></li>
+                <li><a href="#" onclick="app.navigate('/services/proxy'); return false;"><i class="fa-solid fa-network-wired"></i> Proxy Giá Rẻ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area (Dynamic) -->
+    <main class="app-main container" id="app.root">
+        <!-- Rendered by Controller -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container footer-container">
+            <div class="footer-column">
+                <div class="logo">
+                    <span class="logo-text">Tech<span class="highlight">Tools</span></span>
+                </div>
+                <p class="footer-desc">Cung cấp các công cụ tiện ích mạnh mẽ, hệ thống proxy ổn định, mẹo AI mới nhất và đa dạng các dịch vụ mạng xã hội.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Khám phá</h3>
+                <ul>
+                    <li><a href="#">Công cụ 2FA</a></li>
+                    <li><a href="#">Blog công nghệ</a></li>
+                    <li><a href="#">Mẹo sử dụng AI</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Dịch vụ</h3>
+                <ul>
+                    <li><a href="#">Tăng tương tác MXH</a></li>
+                    <li><a href="#">Proxy tư nhân</a></li>
+                    <li><a href="#">Hỗ trợ khách hàng</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TechTools. Chuẩn SEO, Mobile Responsive.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts (MVC injection) -->
+    <script src="./js/models/AuthModel.js"></script>
+    <script src="./js/models/ToolModel.js"></script>
+    <script src="./js/views/HomeView.js"></script>
+    <script src="./js/views/AuthView.js"></script>
+    <script src="./js/views/ToolView.js"></script>
+    <script src="./js/controllers/AppController.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>
