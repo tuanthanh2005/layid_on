@@ -277,6 +277,9 @@
                 <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <a href="{{ route('admin.dashboard') }}"><i data-lucide="layout-dashboard" size="18"></i> Dashboard</a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users.index') }}"><i data-lucide="users" size="18"></i> Quản lý khách hàng</a>
+                </li>
                 @endif
                 @if(Auth::user()->role === 'admin')
                 <li class="menu-item">

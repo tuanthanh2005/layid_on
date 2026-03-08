@@ -20,10 +20,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 
+use App\Http\Controllers\Admin\UserController;
+
 Route::get('/', Home::class)->name('home');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    
+    // User Management
+    Route::resource('users', UserController::class)->names('admin.users');
+    Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('admin.users.reset_password');
 });
 
 Route::middleware('guest')->group(function () {
