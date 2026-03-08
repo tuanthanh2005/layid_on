@@ -289,6 +289,12 @@
                 <li class="menu-item {{ request()->routeIs('admin.utilities.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.utilities.index') }}"><i data-lucide="blocks" size="18"></i> Quản lý tiện ích</a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.products.index') }}"><i data-lucide="shopping-cart" size="18"></i> Quản lý sản phẩm</a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.orders.index') }}"><i data-lucide="clipboard-list" size="18"></i> Quản lý đơn hàng</a>
+                </li>
                 @endif
                 @if(Auth::user()->role === 'admin')
                 <li class="menu-item">

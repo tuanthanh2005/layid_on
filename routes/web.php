@@ -41,6 +41,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Utility / Tool Management
     Route::resource('utilities', \App\Http\Controllers\Admin\UtilityController::class)->names('admin.utilities');
+
+    // Product Management (AI Store)
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)->names('admin.products');
+
+    // Order Management
+    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->names('admin.orders');
 });
 
 Route::middleware('guest')->group(function () {
@@ -60,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.password');
     
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 });
 
 // Tools & Routes
@@ -76,3 +83,7 @@ Route::get('/placeholder/{type}', Feature::class)->name('placeholder');
 
 // Post detail
 Route::get('/bai-viet/{slug}', App\Livewire\PostDetail::class)->name('post.show');
+
+// Checkout
+Route::get('/checkout/{slug}', App\Livewire\Store\Checkout::class)->name('store.checkout');
+

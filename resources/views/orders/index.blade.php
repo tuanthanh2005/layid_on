@@ -1,65 +1,76 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-<h1 class="page-title">Lịch sử đơn hàng</h1>
+<div class="orders-section pb-5" style="padding-top: 30px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold mb-0" style="font-size: 1.8rem; color: var(--text-primary);"><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i> Lịch sử đơn hàng</h1>
+                <div class="text-muted small">Tổng cộng: <strong>{{ $orders->total() }}</strong> đơn hàng</div>
+            </div>
 
-<div class="card">
-    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-        <h4 class="card-title">Danh sách đơn hàng</h4>
-        <div style="font-size: 13px; color: var(--text-secondary);">Tổng cộng: {{ $orders->total() }} đơn hàng</div>
-    </div>
-    
-    <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-            <thead>
-                <tr style="text-align: left; background: #f8f9fa; border-bottom: 1px solid #eef2f7;">
-                    <th style="padding: 15px; font-size: 13px; font-weight: 700; color: #6c757d;">MÃ ĐƠN HÀNG</th>
-                    <th style="padding: 15px; font-size: 13px; font-weight: 700; color: #6c757d;">NGÀY ĐẶT</th>
-                    <th style="padding: 15px; font-size: 13px; font-weight: 700; color: #6c757d;">TỔNG TIỀN</th>
-                    <th style="padding: 15px; font-size: 13px; font-weight: 700; color: #6c757d;">THANH TOÁN</th>
-                    <th style="padding: 15px; font-size: 13px; font-weight: 700; color: #6c757d;">TRẠNG THÁI</th>
-                    <th style="padding: 15px; font-size: 13px; font-weight: 700; color: #6c757d;">THAO TÁC</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($orders as $order)
-                <tr style="border-bottom: 1px solid #eef2f7; transition: background 0.2s;" onmouseover="this.style.background='#fcfdfe'" onmouseout="this.style.background='transparent'">
-                    <td style="padding: 15px; font-weight: 600;">#{{ $order->order_number }}</td>
-                    <td style="padding: 15px; font-size: 14px; color: var(--text-secondary);">{{ $order->created_at->format('d/m/Y H:i') }}</td>
-                    <td style="padding: 15px; font-weight: 700; color: var(--text-primary);">{{ number_format($order->total_amount) }}đ</td>
-                    <td style="padding: 15px; font-size: 14px;">{{ $order->payment_method ?? 'N/A' }}</td>
-                    <td style="padding: 15px;">
-                        @php
-                            $statusColor = match($order->status) {
-                                'completed' => ['#0acf97', 'rgba(10, 207, 151, 0.1)'],
-                                'pending' => ['#ffbc00', 'rgba(255, 188, 0, 0.1)'],
-                                'processing' => ['#3e8ef7', 'rgba(62, 142, 247, 0.1)'],
-                                'cancelled' => ['#fa5c7c', 'rgba(250, 92, 124, 0.1)'],
-                                default => ['#6c757d', 'rgba(108, 117, 125, 0.1)']
-                            };
-                        @endphp
-                        <span style="padding: 4px 10px; background: {{ $statusColor[1] }}; color: {{ $statusColor[0] }}; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase;">
-                            {{ $order->status }}
-                        </span>
-                    </td>
-                    <td style="padding: 15px;">
-                        <button style="background: none; border: none; color: var(--accent-color); cursor: pointer; font-size: 14px; font-weight: 600;">Chi tiết</button>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" style="padding: 40px; text-align: center; color: var(--text-secondary);">
-                        <i data-lucide="shopping-bag" size="40" style="margin-bottom: 10px; opacity: 0.3;"></i>
-                        <p>Bạn chưa có đơn hàng nào.</p>
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-    
-    <div style="margin-top: 20px;">
-        {{ $orders->links() }}
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4 py-3 text-muted fw-bold" style="font-size: 0.85rem; width: 140px;">MÃ ĐƠN HÀNG</th>
+                                    <th class="py-3 text-muted fw-bold" style="font-size: 0.85rem;">NGÀY ĐẶT</th>
+                                    <th class="py-3 text-muted fw-bold" style="font-size: 0.85rem;">TỔNG TIỀN</th>
+                                    <th class="py-3 text-muted fw-bold" style="font-size: 0.85rem;">TRẠNG THÁI</th>
+                                    <th class="py-3 text-muted fw-bold" style="font-size: 0.85rem;">CHI TIẾT</th>
+                                    <th class="pe-4 py-3 text-center text-muted fw-bold" style="font-size: 0.85rem;">THAO TÁC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($orders as $order)
+                                <tr>
+                                    <td class="ps-4 fw-bold text-primary">#{{ $order->order_number }}</td>
+                                    <td class="text-muted small">{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                                    <td class="fw-bold">{{ number_format($order->total_amount) }}đ</td>
+                                    <td>
+                                        @php
+                                            $statusLabel = match($order->status) {
+                                                'completed' => ['Thành công', 'bg-success'],
+                                                'pending' => ['Đang chờ', 'bg-warning'],
+                                                'processing' => ['Đang xử lý', 'bg-info'],
+                                                'cancelled' => ['Đã hủy', 'bg-danger'],
+                                                default => [$order->status, 'bg-secondary']
+                                            };
+                                        @endphp
+                                        <span class="badge {{ $statusLabel[1] }} rounded-pill px-3 py-2" style="font-size: 0.75rem;">
+                                            {{ $statusLabel[0] }}
+                                        </span>
+                                    </td>
+                                    <td class="small text-muted" style="max-width: 250px;">
+                                        <div class="text-truncate">{{ $order->notes }}</div>
+                                    </td>
+                                    <td class="pe-4 text-center">
+                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-light btn-sm rounded-pill px-3 border" style="font-size: 0.8rem;">Xem chi tiết</a>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="text-center py-5">
+                                        <div class="py-4">
+                                            <i class="fa-solid fa-box-open fa-3x text-muted opacity-25 mb-3"></i>
+                                            <p class="text-muted">Bạn chưa có đơn hàng nào.</p>
+                                            <a href="/" class="btn btn-primary rounded-pill px-4">Mua sắm ngay</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $orders->links() }}
+            </div>
+        </div>
     </div>
 </div>
 @endsection

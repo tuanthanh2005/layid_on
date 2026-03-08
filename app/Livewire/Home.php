@@ -20,8 +20,10 @@ class Home extends Component
 
         $utilities = \App\Models\Utility::where('status', true)->orderBy('order_index')->get();
 
+        $aiProducts = \App\Models\Product::where('status', true)->orderBy('order_index')->take(6)->get();
+
         return view('livewire.home', compact(
-            'featuredPost', 'gridPosts', 'recommendedPosts', 'interestedPosts', 'videoPosts', 'latestPosts', 'utilities', 'trendingPosts'
+            'featuredPost', 'gridPosts', 'recommendedPosts', 'interestedPosts', 'videoPosts', 'latestPosts', 'utilities', 'trendingPosts', 'aiProducts'
         ));
     }
 }

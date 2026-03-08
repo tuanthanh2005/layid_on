@@ -32,10 +32,15 @@
             </div>
 
             <div class="auth-buttons">
-                <!-- Giỏ hàng (Cart) -->
-                <a href="#" class="cart-icon" style="text-decoration:none; color: var(--text-primary); margin-right: 15px; font-size: 1.2rem; position: relative; display: flex; align-items: center;" title="Giỏ Hàng">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="cart-badge" style="position: absolute; top: -10px; right: -12px; background: #ef4444; color: white; font-size: 0.7rem; border-radius: 50%; padding: 2px 6px; font-weight: bold;">0</span>
+                <!-- Lịch sử đơn hàng (Orders) -->
+                <a href="{{ route('orders.index') }}" class="cart-icon" style="text-decoration:none; color: var(--text-primary); margin-right: 15px; font-size: 1.2rem; position: relative; display: flex; align-items: center;" title="Lịch sử đơn hàng">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    @auth
+                        @php $orderCount = Auth::user()->orders()->where('status', 'pending')->count(); @endphp
+                        @if($orderCount > 0)
+                            <span class="cart-badge" style="position: absolute; top: -10px; right: -12px; background: #ef4444; color: white; font-size: 0.7rem; border-radius: 50%; padding: 2px 6px; font-weight: bold;">{{ $orderCount }}</span>
+                        @endif
+                    @endauth
                 </a>
 
                 @auth
@@ -113,7 +118,11 @@
 
     <!-- Main Content Area -->
     <main class="app-main container">
-        {{ $slot }}
+        @isset($slot)
+            {{ $slot }}
+        @else
+            @yield('content')
+        @endisset
     </main>
 
     <!-- Footer -->

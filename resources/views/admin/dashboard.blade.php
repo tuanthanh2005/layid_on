@@ -161,135 +161,126 @@
 @endsection
 
 @section('content')
-<h1 class="page-title">Dashboard Overview</h1>
+<h1 class="page-title">Tổng quan hệ thống</h1>
 
 <div class="dashboard-grid">
-    <!-- Card 1 -->
+    <!-- Đơn hàng -->
     <div class="stat-card">
         <div class="stat-header">
             <div>
-                <p class="stat-title">Total Visits</p>
-                <h3 class="stat-value">25,486</h3>
+                <p class="stat-title">Tổng đơn hàng</p>
+                <h3 class="stat-value">{{ number_format($totalOrders) }}</h3>
             </div>
-            <span class="stat-trend trend-up"><i data-lucide="arrow-up-right" size="12"></i> 10%</span>
+            <div class="stat-icon bg-primary-subtle p-2 rounded">
+                <i data-lucide="shopping-bag" class="text-primary"></i>
+            </div>
         </div>
-        <div class="stat-chart-placeholder">
-            @for($i=0; $i<15; $i++)
-                <div class="bar" style="height: {{ rand(10, 40) }}px; opacity: {{ 0.2 + ($i * 0.05) }}"></div>
-            @endfor
-        </div>
+        <div class="small text-muted mt-2">Đơn hàng đã đặt</div>
     </div>
 
-    <!-- Card 2 -->
+    <!-- Đang chờ -->
     <div class="stat-card">
         <div class="stat-header">
             <div>
-                <p class="stat-title">Total Page Views</p>
-                <h3 class="stat-value">84,520</h3>
+                <p class="stat-title">Đơn đang chờ</p>
+                <h3 class="stat-value text-warning">{{ number_format($pendingOrders) }}</h3>
             </div>
-            <span class="stat-trend trend-down"><i data-lucide="arrow-down-right" size="12"></i> 7%</span>
+            <div class="stat-icon bg-warning-subtle p-2 rounded">
+                <i data-lucide="clock" class="text-warning"></i>
+            </div>
         </div>
-        <div class="stat-chart-placeholder">
-            @for($i=0; $i<15; $i++)
-                <div class="bar" style="height: {{ rand(10, 40) }}px; background: #fa5c7c; opacity: {{ 0.2 + ($i * 0.05) }}"></div>
-            @endfor
-        </div>
+        <div class="small text-muted mt-2">Cần xác nhận thanh toán</div>
     </div>
 
-    <!-- Card 3 -->
+    <!-- Doanh thu -->
     <div class="stat-card">
         <div class="stat-header">
             <div>
-                <p class="stat-title">Unique Visitors</p>
-                <h3 class="stat-value">12,150</h3>
+                <p class="stat-title">Doanh thu (Lãi)</p>
+                <h3 class="stat-value text-success">{{ number_format($totalRevenue) }}đ</h3>
             </div>
-            <span class="stat-trend trend-up"><i data-lucide="arrow-up-right" size="12"></i> 12%</span>
+            <div class="stat-icon bg-success-subtle p-2 rounded">
+                <i data-lucide="dollar-sign" class="text-success"></i>
+            </div>
         </div>
-        <div class="stat-chart-placeholder">
-            @for($i=0; $i<15; $i++)
-                <div class="bar" style="height: {{ rand(10, 40) }}px; background: #0acf97; opacity: {{ 0.2 + ($i * 0.05) }}"></div>
-            @endfor
-        </div>
+        <div class="small text-muted mt-2">Đơn hàng đã hoàn thành</div>
     </div>
 
-    <!-- Card 4 -->
+    <!-- Thành viên -->
     <div class="stat-card">
         <div class="stat-header">
             <div>
-                <p class="stat-title">Bounce Rate</p>
-                <h3 class="stat-value">33.5%</h3>
+                <p class="stat-title">Tổng thành viên</p>
+                <h3 class="stat-value">{{ number_format($totalUsers) }}</h3>
             </div>
-            <span class="stat-trend trend-up"><i data-lucide="arrow-up-right" size="12"></i> 5%</span>
+            <div class="stat-icon bg-info-subtle p-2 rounded">
+                <i data-lucide="users" class="text-info"></i>
+            </div>
         </div>
-        <div class="stat-chart-placeholder">
-            @for($i=0; $i<15; $i++)
-                <div class="bar" style="height: {{ rand(10, 40) }}px; background: #727cf5; opacity: {{ 0.2 + ($i * 0.05) }}"></div>
-            @endfor
+        <div class="small text-muted mt-2">Khách đăng ký tài khoản</div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Đơn hàng gần đây</h5>
+                <a href="{{ route('admin.orders.index') }}" class="btn btn-primary btn-sm rounded-pill px-3">Xem tất cả</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4 py-3">Mã đơn</th>
+                                <th>Khách hàng</th>
+                                <th>Sản phẩm & Ghi chú</th>
+                                <th>Giá</th>
+                                <th>Trạng thái</th>
+                                <th class="pe-4 text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($recentOrders as $order)
+                            <tr>
+                                <td class="ps-4 fw-bold">#{{ $order->order_number }}</td>
+                                <td>
+                                    {{ $order->user->name ?? 'Khách vãng lai' }}
+                                    <div class="small text-muted">{{ $order->created_at->format('d/m H:i') }}</div>
+                                </td>
+                                <td>
+                                    <div class="text-truncate" style="max-width: 200px;">{{ $order->notes }}</div>
+                                </td>
+                                <td class="fw-bold">{{ number_format($order->total_amount) }}đ</td>
+                                <td>
+                                    @php
+                                        $badgeClass = match($order->status) {
+                                            'completed' => 'bg-success',
+                                            'pending' => 'bg-warning',
+                                            'processing' => 'bg-info',
+                                            'cancelled' => 'bg-danger',
+                                            default => 'bg-secondary'
+                                        };
+                                    @endphp
+                                    <span class="badge {{ $badgeClass }} rounded-pill">{{ $order->status }}</span>
+                                </td>
+                                <td class="pe-4 text-center">
+                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Chi tiết</a>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">Chưa có đơn hàng nào</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="section-grid">
-    <!-- Map Section -->
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Site Visits</h4>
-            <div class="card-actions">
-                <button class="icon-btn"><i data-lucide="more-vertical" size="18"></i></button>
-            </div>
-        </div>
-        <div class="visitor-map">
-            <div class="map-dot dot-usa"></div>
-            <div class="map-dot dot-europe"></div>
-            <div class="map-dot dot-india"></div>
-            <div class="map-dot dot-australia"></div>
-        </div>
-    </div>
-
-    <!-- Visitor Stats -->
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Regional Statistics</h4>
-        </div>
-        <ul class="progress-list">
-            <li class="progress-item">
-                <div class="progress-info">
-                    <span class="progress-label">United States</span>
-                    <span class="progress-value">50%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: 50%; background: #727cf5;"></div>
-                </div>
-            </li>
-            <li class="progress-item">
-                <div class="progress-info">
-                    <span class="progress-label">Europe</span>
-                    <span class="progress-value">80%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: 80%; background: #0acf97;"></div>
-                </div>
-            </li>
-            <li class="progress-item">
-                <div class="progress-info">
-                    <span class="progress-label">Australia</span>
-                    <span class="progress-value">40%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: 40%; background: #39afd1;"></div>
-                </div>
-            </li>
-            <li class="progress-item">
-                <div class="progress-info">
-                    <span class="progress-label">India</span>
-                    <span class="progress-value">90%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: 90%; background: #fa5c7c;"></div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
 
 @endsection

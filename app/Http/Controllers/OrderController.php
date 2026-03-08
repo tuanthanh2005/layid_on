@@ -13,4 +13,10 @@ class OrderController extends Controller
         $orders = Auth::user()->orders()->latest()->paginate(10);
         return view('orders.index', compact('orders'));
     }
+
+    public function show($id)
+    {
+        $order = Auth::user()->orders()->findOrFail($id);
+        return view('orders.show', compact('order'));
+    }
 }

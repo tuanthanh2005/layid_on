@@ -82,73 +82,35 @@
     </style>
 
     <div class="pricing-grid">
-        <!-- ChatGPT Plus Card -->
-        <div class="pricing-card popular">
-            <div class="popular-badge">HOT</div>
+        @forelse($products as $product)
+        <div class="pricing-card {{ $product->badge_text ? 'popular' : '' }}">
+            @if($product->badge_text)
+            <div class="popular-badge">{{ $product->badge_text }}</div>
+            @endif
             <div class="pricing-header">
-                <i class="fa-solid fa-robot" style="font-size: 3rem; color: #10a37f; margin-bottom: 15px;"></i>
-                <h3 class="pricing-title">ChatGPT Plus</h3>
-                <div class="pricing-price">99.000đ <span>/tháng</span></div>
-                <div style="text-decoration: line-through; color: var(--text-secondary); font-size: 0.9rem;">Giá gốc: 499.000đ</div>
+                @if($product->image)
+                <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 15px; border-radius: 12px;">
+                @else
+                <i class="fa-solid fa-robot" style="font-size: 3rem; color: var(--accent-primary); margin-bottom: 15px;"></i>
+                @endif
+                <h3 class="pricing-title">{{ $product->name }}</h3>
+                <div class="pricing-price">{{ number_format($product->price) }}đ</div>
+                @if($product->discount_price)
+                <div style="text-decoration: line-through; color: var(--text-secondary); font-size: 0.9rem;">Giá gốc: {{ number_format($product->discount_price) }}đ</div>
+                @endif
             </div>
-            <ul class="pricing-features">
-                <li><i class="fa-solid fa-check"></i> Truy cập GPT-4 & GPT-4o</li>
-                <li><i class="fa-solid fa-check"></i> DALL-E 3 tạo ảnh không giới hạn</li>
-                <li><i class="fa-solid fa-check"></i> Tạo GPTs cá nhân hóa</li>
-                <li><i class="fa-solid fa-check"></i> Bảo hành 1 đổi 1 suốt 30 ngày</li>
-            </ul>
-            <button class="btn btn-primary pricing-action" onclick="alert('Đã thêm vào giỏ hàng: ChatGPT Plus 1 tháng')"><i class="fa-solid fa-cart-shopping"></i> Mua Ngay</button>
-        </div>
-
-        <!-- Claude Pro Card -->
-        <div class="pricing-card">
-            <div class="pricing-header">
-                <i class="fa-solid fa-brain" style="font-size: 3rem; color: #cc785c; margin-bottom: 15px;"></i>
-                <h3 class="pricing-title">Claude Pro (Opus)</h3>
-                <div class="pricing-price">120.000đ <span>/tháng</span></div>
-                <div style="text-decoration: line-through; color: var(--text-secondary); font-size: 0.9rem;">Giá gốc: 500.000đ</div>
+            <div class="pricing-features" style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px;">
+                {!! nl2br(e($product->description)) !!}
             </div>
-            <ul class="pricing-features">
-                <li><i class="fa-solid fa-check"></i> Mô hình Opus thông minh nhất</li>
-                <li><i class="fa-solid fa-check"></i> Xử lý 200k tokens (Rất dài)</li>
-                <li><i class="fa-solid fa-check"></i> Phân tích file (PDF, Word, Code)</li>
-                <li><i class="fa-solid fa-check"></i> Lập trình vượt trội</li>
-            </ul>
-            <button class="btn btn-outline pricing-action" onclick="alert('Đã thêm vào giỏ hàng: Claude Pro 1 tháng')"><i class="fa-solid fa-cart-shopping"></i> Mua Ngay</button>
+                        <a href="{{ route('store.checkout', $product->slug) }}" class="btn {{ $product->badge_text ? 'btn-primary' : 'btn-outline' }} pricing-action text-center text-decoration-none">
+                <i class="fa-solid fa-cart-shopping"></i> Mua Ngay
+            </a>
         </div>
-
-        <!-- Midjourney Card -->
-        <div class="pricing-card">
-            <div class="pricing-header">
-                <i class="fa-solid fa-palette" style="font-size: 3rem; color: #5865F2; margin-bottom: 15px;"></i>
-                <h3 class="pricing-title">Midjourney Pro</h3>
-                <div class="pricing-price">150.000đ <span>/tháng</span></div>
-                <div style="text-decoration: line-through; color: var(--text-secondary); font-size: 0.9rem;">Giá gốc: 699.000đ</div>
-            </div>
-            <ul class="pricing-features">
-                <li><i class="fa-solid fa-check"></i> Render Fast Mode ưu tiên</li>
-                <li><i class="fa-solid fa-check"></i> Tạo ảnh thương mại hoá</li>
-                <li><i class="fa-solid fa-check"></i> Kết nối thẳng Discord cá nhân</li>
-                <li><i class="fa-solid fa-check"></i> Kèm thư viện Prompt khổng lồ</li>
-            </ul>
-            <button class="btn btn-outline pricing-action" onclick="alert('Đã thêm vào giỏ hàng: Midjourney 1 tháng')"><i class="fa-solid fa-cart-shopping"></i> Mua Ngay</button>
+        @empty
+        <div style="grid-column: 1 / -1; text-align: center; padding: 50px; background: var(--bg-card); border-radius: 12px; border: 1px dashed var(--border-color);">
+            <i class="fa-solid fa-box-open fa-3x" style="color: var(--text-secondary); opacity: 0.3; margin-bottom: 15px;"></i>
+            <p style="color: var(--text-secondary);">Hiện chưa có sản phẩm nào trong cửa hàng.</p>
         </div>
-        
-        <!-- Canva Pro Card -->
-        <div class="pricing-card">
-            <div class="pricing-header">
-                <i class="fa-solid fa-pen-nib" style="font-size: 3rem; color: #00c4cc; margin-bottom: 15px;"></i>
-                <h3 class="pricing-title">Canva Pro Lifetime</h3>
-                <div class="pricing-price">49.000đ <span>/vĩnh viễn</span></div>
-                <div style="text-decoration: line-through; color: var(--text-secondary); font-size: 0.9rem;">Giá gốc: 990.000đ</div>
-            </div>
-            <ul class="pricing-features">
-                <li><i class="fa-solid fa-check"></i> Upgrade thẳng Email cá nhân</li>
-                <li><i class="fa-solid fa-check"></i> Bảo hành vĩnh viễn (Life time)</li>
-                <li><i class="fa-solid fa-check"></i> Kho ảnh gốc, video Pro không dán nhãn</li>
-                <li><i class="fa-solid fa-check"></i> Tính năng Magic Studio AI mới nhất</li>
-            </ul>
-            <button class="btn btn-outline pricing-action" onclick="alert('Đã thêm vào giỏ hàng: Canva Pro Vĩnh viễn')"><i class="fa-solid fa-cart-shopping"></i> Mua Ngay</button>
-        </div>
+        @endforelse
     </div>
 </div>

@@ -65,6 +65,37 @@
             </div>
             @endforelse
 
+            <!-- AI Account Store -->
+            @if($aiProducts->count() > 0)
+            <div class="section-title">Cửa Hàng Tài Khoản AI</div>
+            <div class="post-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 35px; gap: 15px;">
+                @foreach($aiProducts as $product)
+                <div class="post-card" style="border: 1px solid #f1f5f9; padding: 10px; border-radius: 12px; transition: all 0.3s ease; position: relative; background: #fff;">
+                    @if($product->badge_text)
+                    <div style="position: absolute; top: 15px; left: 15px; z-index: 2; background: #ef4444; color: white; font-size: 0.75rem; padding: 2px 10px; border-radius: 20px; font-weight: 700; box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);">{{ $product->badge_text }}</div>
+                    @endif
+                    <a href="{{ $product->url ?? '#' }}" target="_blank" style="display: block;">
+                        <div class="post-thumb" style="height: 140px; background: {{ $product->image ? 'url(\''.asset($product->image).'\') center/contain no-repeat' : 'linear-gradient(135deg, #f8fafc, #f1f5f9)' }}; border-radius: 8px; margin-bottom: 12px; border: 1px solid #f8fafc;">
+                            @if(!$product->image)
+                            <i class="fa-solid fa-robot fa-3x" style="opacity: 0.1; color: #475569;"></i>
+                            @endif
+                        </div>
+                    </a>
+                    <div style="text-align: center;">
+                        <a href="{{ $product->url ?? '#' }}" target="_blank" class="post-title" style="font-size: 1rem; font-weight: 700; margin-bottom: 5px; height: auto; -webkit-line-clamp: 1;">{{ $product->name }}</a>
+                        <div style="margin-bottom: 10px;">
+                            <span style="color: #ef4444; font-weight: 800; font-size: 1.1rem;">{{ number_format($product->price) }}đ</span>
+                            @if($product->discount_price)
+                            <br><small style="color: #94a3b8; text-decoration: line-through;">{{ number_format($product->discount_price) }}đ</small>
+                            @endif
+                        </div>
+                        <a href="{{ route('store.checkout', $product->slug) }}" style="display: block; background: #1d4ed8; color: white; text-decoration: none; padding: 6px 0; border-radius: 8px; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">Mua ngay</a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
             <!-- Tiện ích (không thuộc bài viết) -->
             <div class="section-title">Tiện ích</div>
             <div class="post-grid" style="grid-template-columns: repeat(3, 1fr);">
