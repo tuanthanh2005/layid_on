@@ -21,6 +21,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\MenuController;
 
 Route::get('/', Home::class)->name('home');
 
@@ -30,6 +31,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     // User Management
     Route::resource('users', UserController::class)->names('admin.users');
     Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('admin.users.reset_password');
+
+    // Menu Management
+    Route::resource('menus', MenuController::class)->names('admin.menus');
 });
 
 Route::middleware('guest')->group(function () {

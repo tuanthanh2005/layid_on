@@ -19,6 +19,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
+            $menus = \App\Models\Menu::whereNull('parent_id')
+                ->where('status', true)
+                ->with('submenus')
+                ->orderBy('order')
+                ->get();
+            $view->with('public_menus', $menus);
+        });
     }
 }

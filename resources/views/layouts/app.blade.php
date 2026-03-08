@@ -66,32 +66,34 @@
     <nav class="app-nav">
         <div class="container nav-container">
             <ul class="nav-links" id="nav-links">
-                <li><a wire:navigate href="/" class="{{ request()->is('/') ? 'active' : '' }}"><i class="fa-solid fa-home"></i> Trang chủ</a></li>
-                
-                <li><a wire:navigate href="/store/ai-accounts" class="{{ request()->is('store/ai-accounts') ? 'active' : '' }}"><i class="fa-solid fa-store"></i> AI Giá Rẻ</a></li>
-                
-                <li class="has-dropdown">
-                    <a wire:navigate href="/placeholder/gemini" class="{{ request()->is('placeholder/gemini') ? 'active' : '' }}"><i class="fa-solid fa-robot"></i> Tool AI <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a wire:navigate href="/placeholder/gemini"><i class="fa-solid fa-gift"></i> Gemini Business Free</a></li>
-                        <li><a wire:navigate href="/placeholder/watermark"><i class="fa-solid fa-eraser"></i> Xóa Watermark Ảnh</a></li>
-                    </ul>
-                </li>
-
-                <li><a wire:navigate href="/tools/2fa" class="{{ request()->is('tools/2fa') ? 'active' : '' }}"><i class="fa-solid fa-shield-halved"></i> 2FA Code</a></li>
-
-                <li class="has-dropdown">
-                    <a wire:navigate href="/placeholder/buff" class="{{ request()->is('placeholder/buff') ? 'active' : '' }}"><i class="fa-solid fa-fire"></i> Dịch vụ MXH <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a wire:navigate href="/placeholder/buff"><i class="fa-brands fa-tiktok"></i> Buff TikTok</a></li>
-                        <li><a wire:navigate href="/placeholder/buff"><i class="fa-brands fa-facebook"></i> Buff Facebook</a></li>
-                    </ul>
-                </li>
-                
-                <li><a wire:navigate href="/courses" class="{{ request()->is('courses*') ? 'active' : '' }}"><i class="fa-solid fa-graduation-cap"></i> Học IT Miễn Phí</a></li>
-
-                <li><a wire:navigate href="/blog" class="{{ request()->is('blog') ? 'active' : '' }}"><i class="fa-solid fa-book"></i> Blog & Mẹo AI</a></li>
-                <li><a wire:navigate href="/movies" class="{{ request()->is('movies') ? 'active' : '' }}"><i class="fa-solid fa-film"></i> Review Phim</a></li>
+                @foreach($public_menus as $menu)
+                    @if($menu->submenus->count() > 0)
+                        <li class="has-dropdown">
+                            <a wire:navigate href="{{ $menu->url }}" class="{{ request()->is(ltrim($menu->url, '/').'*') ? 'active' : '' }}">
+                                @if($menu->icon) <i class="{{ $menu->icon }}"></i> @endif
+                                {{ $menu->name }} 
+                                <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach($menu->submenus as $submenu)
+                                    <li>
+                                        <a wire:navigate href="{{ $submenu->url }}">
+                                            @if($submenu->icon) <i class="{{ $submenu->icon }}"></i> @endif
+                                            {{ $submenu->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        <li>
+                            <a wire:navigate href="{{ $menu->url }}" class="{{ request()->is(ltrim($menu->url, '/')) ? 'active' : '' }}">
+                                @if($menu->icon) <i class="{{ $menu->icon }}"></i> @endif
+                                {{ $menu->name }}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
             </ul>
         </div>
     </nav>

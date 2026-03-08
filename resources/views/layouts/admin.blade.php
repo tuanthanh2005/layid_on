@@ -280,6 +280,9 @@
                 <li class="menu-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.users.index') }}"><i data-lucide="users" size="18"></i> Quản lý khách hàng</a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('admin.menus.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.menus.index') }}"><i data-lucide="menu" size="18"></i> Quản lý Menu</a>
+                </li>
                 @endif
                 @if(Auth::user()->role === 'admin')
                 <li class="menu-item">

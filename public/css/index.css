@@ -178,13 +178,16 @@ body.light-theme {
 .app-nav {
   background-color: #ffffff;
   border-bottom: 1px solid var(--border-color);
-  padding: 15px 0;
+  padding: 10px 0;
 }
 
 .nav-links {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   list-style: none;
-  gap: 25px;
+  gap: 20px 30px;
+  /* Space between items (Row, Column) */
 }
 
 .nav-links a {
