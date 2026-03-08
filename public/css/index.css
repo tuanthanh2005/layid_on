@@ -471,33 +471,37 @@ body.light-theme {
   }
 }
 
-/* Dropdown Navigation */
+/* Dropdown Navigation - Premium Look */
 .nav-links li.has-dropdown {
   position: relative;
+  padding-bottom: 5px;
+  /* Bridge gap for hover */
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  min-width: 240px;
-  box-shadow: var(--shadow-md);
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  min-width: 220px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: var(--transition);
-  z-index: 200;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
   list-style: none;
-  padding: 10px 0;
+  padding: 8px;
+  display: block;
+  /* Ensure it's not display:none */
 }
 
 .nav-links li.has-dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 .dropdown-menu li {
@@ -505,19 +509,32 @@ body.light-theme {
 }
 
 .dropdown-menu li a {
-  padding: 10px 20px;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  display: block;
-  transition: var(--transition);
+  padding: 10px 15px;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
   text-decoration: none;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.dropdown-menu li a i {
+  width: 16px;
+  text-align: center;
+  color: var(--text-secondary);
 }
 
 .dropdown-menu li a:hover {
-  background-color: var(--bg-primary);
+  background-color: rgba(5, 150, 105, 0.05);
   color: var(--accent-primary);
-  padding-left: 25px;
-  border-left: 3px solid var(--accent-primary);
+  transform: translateX(5px);
+}
+
+.dropdown-menu li a:hover i {
+  color: var(--accent-primary);
 }
 
 /* Magazine Layout */
