@@ -49,7 +49,7 @@ return [
 
         'public_uploads' => [
             'driver' => 'local',
-            'root' => base_path('../public_html'),
+            'root' => env('UPLOADS_DISK_ROOT', public_path()), 
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

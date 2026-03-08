@@ -33,7 +33,9 @@ class PostController extends Controller
         $post->content = $request->input('content');
         if ($request->hasFile('thumbnail_file')) {
             $file = $request->file('thumbnail_file');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '_' . Str::slug($originalName) . '.' . $extension;
             $file->storeAs('uploads/posts', $filename, 'public_uploads');
             $post->thumbnail = '/uploads/posts/' . $filename;
         } else {
@@ -77,7 +79,9 @@ class PostController extends Controller
         $post->content = $request->input('content');
         if ($request->hasFile('thumbnail_file')) {
             $file = $request->file('thumbnail_file');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '_' . Str::slug($originalName) . '.' . $extension;
             $file->storeAs('uploads/posts', $filename, 'public_uploads');
             $post->thumbnail = '/uploads/posts/' . $filename;
         } elseif ($request->filled('thumbnail')) {
