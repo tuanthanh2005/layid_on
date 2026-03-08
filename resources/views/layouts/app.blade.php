@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Trang web chuyên cung cấp tool công nghệ: lấy mã 2FA, AI tips, chia sẻ thủ thuật.">
     <title>{{ $title ?? 'Layid - Trang chuyên Công nghệ & AI' }}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -36,9 +38,15 @@
                 </a>
 
                 @auth
-                    <span style="color: var(--accent-primary); margin-right: 15px; font-weight: bold; align-self: center;">
-                        <i class="fa-solid fa-user"></i> {{ Auth::user()->name }}
-                    </span>
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" style="color: var(--accent-primary); margin-right: 15px; font-weight: bold; align-self: center; text-decoration: none;">
+                            <i class="fa-solid fa-user-shield"></i> Quản trị viên
+                        </a>
+                    @else
+                        <a href="{{ route('profile.index') }}" style="color: var(--accent-primary); margin-right: 15px; font-weight: bold; align-self: center; text-decoration: none;">
+                            <i class="fa-solid fa-user"></i> {{ Auth::user()->name }}
+                        </a>
+                    @endif
                     <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                         @csrf
                         <button type="submit" class="btn btn-outline">Đăng xuất</button>
@@ -144,6 +152,40 @@
         </div>
     </footer>
 
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+        @if(session('success'))
+        <div id="successToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-circle-check me-2"></i> {{ session('success') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        @endif
+
+        @if(session('error') || $errors->any())
+        <div id="errorToast" class="toast align-items-center text-white bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i> {{ session('error') ?? $errors->first() }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        @endif
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Auto-hide toasts after 5 seconds
+        document.querySelectorAll('.toast').forEach(toastEl => {
+            const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+            toast.show();
+        });
+    </script>
     @livewireScripts
 </body>
 </html>

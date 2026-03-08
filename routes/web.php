@@ -14,19 +14,36 @@ use App\Livewire\Courses;
 use App\Livewire\CourseDetail;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\Admin\AdminController;
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
+
 Route::get('/', Home::class)->name('home');
 
-Route::middleware('guest')->group(function () {
-    Route::get('/login', Login::class)->name('login');
-    Route::get('/register', Register::class)->name('register');
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
-Route::post('/logout', function () {
-    Auth::logout();
-    session()->invalidate();
-    session()->regenerateToken();
-    return redirect('/');
-})->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+    
+    Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.password');
+    
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+});
 
 // Tools & Routes
 Route::get('/tools/2fa', TwoFactor::class)->name('tools.2fa');
