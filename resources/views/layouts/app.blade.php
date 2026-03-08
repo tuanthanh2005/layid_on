@@ -26,6 +26,7 @@
             </div>
             
             <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" placeholder="Bạn đang tìm sản phẩm AI, công cụ nào...">
                 <button class="search-btn">Tìm kiếm</button>
             </div>
