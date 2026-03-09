@@ -160,26 +160,45 @@
             </div>
             @endif
 
-            <!-- Download (Không thuộc quản lý bài viết nên giữ nguyên hiển thị tĩnh tĩnh hoặc CMS riêng) -->
+            <!-- AI Giá Rẻ - Shop Widget -->
             <div class="sidebar-widget">
-                <h3 class="widget-title">Download</h3>
-                <div class="download-item">
-                    <div class="download-icon" style="background: #1e293b; color: #f59e0b; border-radius: 12px;"><i class="fa-solid fa-star"></i></div>
-                    <div class="download-info" style="flex:1;">
-                        <h4>Luminar AI</h4>
-                        <div class="download-dev">Skylum Software</div>
-                        <span class="download-rating"><i class="fa-solid fa-star" style="color:#60a5fa;"></i><i class="fa-solid fa-star" style="color:#60a5fa;"></i><i class="fa-solid fa-star" style="color:#60a5fa;"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                        <span class="free-tag">Miễn phí</span>
-                    </div>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h3 class="widget-title m-0">AI Giá Rẻ</h3>
+                    <a href="{{ route('store.ai') }}" class="text-primary small text-decoration-none fw-bold">Tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
                 </div>
-
-                <div class="download-item">
-                    <div class="download-icon" style="background: #fbbf24; color: white; border-radius: 12px; font-weight:bold; font-size:1rem;">HT<br>HT</div>
-                    <div class="download-info" style="flex:1;">
-                        <h4>Huyền Thoại Hải Tặc...</h4>
-                        <div class="download-dev">GOSU</div>
+                
+                @if($aiProducts->count() > 0)
+                    <div class="shop-sidebar-list">
+                        @foreach($aiProducts->take(3) as $product)
+                        <div class="download-item p-2 mb-2 border rounded-3 transition-all hover-bg-light" style="cursor: pointer;" onclick="window.location.href='{{ route('store.checkout', $product->slug) }}'">
+                            <div class="download-icon shadow-sm" style="background: white; border: 1px solid #f1f5f9; padding: 5px;">
+                                @if($product->image)
+                                    <img src="{{ asset($product->image) }}" class="w-100 h-100 object-fit-contain" alt="{{ $product->name }}">
+                                @else
+                                    <i class="fa-solid fa-robot text-primary"></i>
+                                @endif
+                            </div>
+                            <div class="download-info ms-2" style="flex:1;">
+                                <h4 class="m-0 text-dark-800" style="font-size: 0.9rem; -webkit-line-clamp: 1;">{{ $product->name }}</h4>
+                                <div class="d-flex align-items-center gap-2 mt-1">
+                                    <span class="text-danger fw-bold small">{{ number_format($product->price) }}đ</span>
+                                    @if($product->discount_price)
+                                        <span class="text-muted small text-decoration-line-through" style="font-size: 0.7rem;">{{ number_format($product->discount_price) }}đ</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="ms-auto">
+                                <span class="badge bg-primary-subtle text-primary rounded-pill px-2 py-1" style="font-size: 0.65rem;">Mua</span>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
-                </div>
+                @else
+                    <div class="text-center py-4 bg-light rounded-3 border">
+                        <i class="fa-solid fa-store opacity-20 display-6 mb-2"></i>
+                        <p class="text-muted small mb-0">Gian hàng đang cập nhật</p>
+                    </div>
+                @endif
             </div>
 
             <!-- Có thể bạn quan tâm -->

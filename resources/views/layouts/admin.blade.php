@@ -286,6 +286,9 @@
                 <li class="menu-item {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.posts.index') }}"><i data-lucide="file-text" size="18"></i> Quản lý trang chủ</a>
                 </li>
+                <li class="menu-item {{ request()->routeIs('admin.gemini-tricks.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.gemini-tricks.index') }}"><i data-lucide="gem" size="18"></i> Thủ thuật Gemini</a>
+                </li>
                 <li class="menu-item {{ request()->routeIs('admin.utilities.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.utilities.index') }}"><i data-lucide="blocks" size="18"></i> Quản lý tiện ích</a>
                 </li>

@@ -8,10 +8,10 @@
                     <i class="fa-solid fa-wand-magic-sparkles text-white fs-2"></i>
                 </div>
                 <h1 class="fw-bold display-5 mb-3" style="background: linear-gradient(to right, #1d4ed8, #7e22ce); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Xóa Logo Gemini AI</h1>
-                <p class="text-muted fs-5 mx-auto" style="max-width: 600px;">Công cụ xóa watermark Gemini bằng thuật toán <strong>Reverse Alpha Blending</strong> — không cần API, xử lý 100% cục bộ, lossless và tức thì.</p>
+                <p class="text-muted fs-5 mx-auto" style="max-width: 600px;">Công cụ chuyên dụng giúp khôi phục hình ảnh từ Gemini về trạng thái nguyên bản, loại bỏ các dấu ấn nhận diện một cách tự nhiên và sạch sẽ nhất.</p>
                 <div class="d-inline-flex align-items-center gap-2 mt-2 px-3 py-1 rounded-pill" style="background:#f0fdf4; border:1px solid #bbf7d0;">
                     <i class="fa-solid fa-circle-check text-success"></i>
-                    <span class="small text-success fw-semibold">Miễn phí • Không giới hạn • Không cần API Key</span>
+                    <span class="small text-success fw-semibold">Miễn phí • Tốc độ cao • Chất lượng nguyên bản</span>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
 
                         <div wire:loading.remove wire:target="image">
                             <i class="fa-solid fa-cloud-arrow-up display-2 mb-4 text-primary opacity-25"></i>
-                            <h3 class="fw-bold h4">Tải ảnh Gemini lên để xóa logo</h3>
+                            <h3 class="fw-bold h4">Tải ảnh Gemini lên để xử lý</h3>
                             <p class="text-muted small mb-1">Hỗ trợ JPG, PNG, WEBP (Tối đa 10MB)</p>
                             <p class="text-muted" style="font-size:0.75rem;">Hoặc kéo và thả hình ảnh vào đây</p>
                         </div>
@@ -73,7 +73,7 @@
                                  style="display:none!important; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);">
                                 <div class="spinner-grow text-white" style="width: 3.5rem; height: 3.5rem;" role="status"></div>
                                 <h4 class="text-white fw-bold mt-3">Đang xử lý...</h4>
-                                <p class="text-white-50 small mb-2">Reverse Alpha Blending đang hoạt động</p>
+                                <p class="text-white-50 small mb-2">Đang phân tích cấu trúc hình ảnh</p>
                                 <div class="px-3 py-1 rounded-pill d-inline-flex align-items-center gap-2"
                                      style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);">
                                     <i class="fa-regular fa-clock text-white-50"></i>
@@ -98,7 +98,7 @@
                                     onclick="geminiStartTimer()"
                                     class="btn btn-primary rounded-pill px-5 py-2 shadow-sm">
                                 <span wire:loading.remove wire:target="process">
-                                    <i class="fa-solid fa-sparkles me-2"></i>Bắt đầu xóa Logo
+                                    <i class="fa-solid fa-sparkles me-2"></i>Bắt đầu xử lý
                                 </span>
                                 <span wire:loading wire:target="process">
                                     <span class="spinner-border spinner-border-sm me-2" role="status"></span>Đang xử lý...
@@ -115,7 +115,7 @@
                             <i class="fa-solid fa-circle-check fs-2"></i>
                             <div>
                                 <h5 class="fw-bold mb-0">Xử lý thành công!</h5>
-                                <p class="mb-0 small opacity-75">Watermark Gemini đã được loại bỏ hoàn toàn bằng phép tính ngược alpha blending.</p>
+                                <p class="mb-0 small opacity-75">Dấu bản quyền đã được loại bỏ hoàn toàn khỏi hình ảnh.</p>
                             </div>
                         </div>
 
@@ -130,15 +130,15 @@
                                 <div class="mb-4">
                                     <div class="d-flex justify-content-between mb-2">
                                         <span class="small text-muted">Phương thức xử lý:</span>
-                                        <span class="small fw-bold text-primary">Reverse Alpha Blending</span>
+                                        <span class="small fw-bold text-primary">Tái cấu trúc Lossless</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <span class="small text-muted">Chất lượng:</span>
-                                        <span class="small fw-bold text-success">Lossless (Gốc 100%)</span>
+                                        <span class="small fw-bold text-success">Gốc 100%</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
-                                        <span class="small text-muted">API bên ngoài:</span>
-                                        <span class="small fw-bold text-success">Không dùng ✓</span>
+                                        <span class="small text-muted">Bảo mật dữ liệu:</span>
+                                        <span class="small fw-bold text-success">Xử lý khép kín ✓</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <span class="small text-muted">Dung lượng:</span>
@@ -147,7 +147,7 @@
                                 </div>
 
                                 <div class="d-grid gap-3">
-                                    <a href="{{ $processedImageUrl }}" target="_blank" download="gemini_no_watermark.png" class="btn btn-success rounded-pill py-3 fw-bold shadow-sm">
+                                    <a href="{{ $processedImageUrl }}" target="_blank" download="restored_image.png" class="btn btn-success rounded-pill py-3 fw-bold shadow-sm">
                                         <i class="fa-solid fa-download me-2"></i> Tải ảnh xuống máy
                                     </a>
                                     <button wire:click="resetTool" class="btn btn-outline-secondary rounded-pill py-2">
@@ -166,23 +166,23 @@
             <div class="row mt-5 pt-4">
                 <div class="col-md-4 mb-4">
                     <div class="p-4 rounded-4 h-100 bg-white shadow-sm transition-hover">
-                        <i class="fa-solid fa-calculator text-primary fs-3 mb-3"></i>
-                        <h5 class="fw-bold">Thuật toán toán học</h5>
-                        <p class="text-muted small">Dùng công thức <code>original = (watermarked − α × logo) / (1 − α)</code> để tái tạo pixel gốc chính xác 100%, không dự đoán như AI.</p>
+                        <i class="fa-solid fa-wand-magic-sparkles text-primary fs-3 mb-3"></i>
+                        <h5 class="fw-bold">Khôi phục Lossless</h5>
+                        <p class="text-muted small">Công nghệ tái cấu trúc điểm ảnh giúp giữ nguyên 100% chất lượng hình ảnh gốc mà không để lại bất kỳ dấu vết can thiệp nào.</p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="p-4 rounded-4 h-100 bg-white shadow-sm transition-hover">
                         <i class="fa-solid fa-bolt text-warning fs-3 mb-3"></i>
-                        <h5 class="fw-bold">Xử lý tức thì</h5>
-                        <p class="text-muted small">Không cần kết nối API hay chờ đợi mô hình AI. Toàn bộ quá trình diễn ra ngay trên máy chủ chỉ trong vài mili-giây.</p>
+                        <h5 class="fw-bold">Xử lý siêu tốc</h5>
+                        <p class="text-muted small">Toàn bộ quá trình phân tích và xử lý hình ảnh được thực hiện với hiệu suất cực cao, giúp bạn nhận kết quả ngay lập tức.</p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="p-4 rounded-4 h-100 bg-white shadow-sm transition-hover">
                         <i class="fa-solid fa-shield-halved text-success fs-3 mb-3"></i>
-                        <h5 class="fw-bold">Bảo mật & miễn phí</h5>
-                        <p class="text-muted small">Không cần API Key, không giới hạn số lần sử dụng. Ảnh của bạn được xử lý tạm thời và xóa sạch sau khi tải.</p>
+                        <h5 class="fw-bold">An toàn & Riêng tư</h5>
+                        <p class="text-muted small">Dữ liệu của bạn được xử lý khép kín hoàn toàn. Mọi tệp tin tạm thời sẽ bị xóa sạch khỏi hệ thống ngay sau khi bạn hoàn tất.</p>
                     </div>
                 </div>
             </div>

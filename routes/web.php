@@ -12,6 +12,7 @@ use App\Livewire\Placeholders\Feature;
 use App\Livewire\Blog;
 use App\Livewire\Courses;
 use App\Livewire\CourseDetail;
+use App\Livewire\GeminiBusinessFree;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Admin\AdminController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\GeminiTrickController;
 
 Route::get('/', Home::class)->name('home');
 
@@ -38,6 +40,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Post Management
     Route::resource('posts', \App\Http\Controllers\Admin\PostController::class)->names('admin.posts');
+
+    // Gemini Tricks (Separate)
+    Route::resource('gemini-tricks', GeminiTrickController::class)->names('admin.gemini-tricks');
 
     // Utility / Tool Management
     Route::resource('utilities', \App\Http\Controllers\Admin\UtilityController::class)->names('admin.utilities');
@@ -72,6 +77,7 @@ Route::middleware('auth')->group(function () {
 // Tools & Routes
 Route::get('/tools/2fa', TwoFactor::class)->name('tools.2fa');
 Route::get('/tools/remove-gemini-logo', \App\Livewire\Tools\RemoveGeminiLogo::class)->name('tools.remove-gemini');
+Route::get('/gemini-business-free/{slug?}', GeminiBusinessFree::class)->name('gemini.business');
 Route::get('/store/ai-accounts', AiAccounts::class)->name('store.ai');
 Route::get('/movies', Movies::class)->name('movies.index');
 Route::get('/movies/thien-than-ho-menh', MovieDetail::class)->name('movies.show');

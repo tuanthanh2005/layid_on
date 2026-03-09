@@ -13,8 +13,8 @@ class MenuSeeder extends Seeder
             ['name' => 'Trang chủ', 'url' => '/', 'icon' => 'fa-solid fa-home', 'order' => 1],
             ['name' => 'AI Giá Rẻ', 'url' => '/store/ai-accounts', 'icon' => 'fa-solid fa-store', 'order' => 2],
             ['name' => 'Tool AI', 'url' => '#', 'icon' => 'fa-solid fa-robot', 'order' => 3, 'children' => [
-                ['name' => 'Gemini Business Free', 'url' => '/placeholder/gemini', 'icon' => 'fa-solid fa-gift', 'order' => 1],
-                ['name' => 'Xóa Watermark Ảnh', 'url' => '/placeholder/watermark', 'icon' => 'fa-solid fa-eraser', 'order' => 2],
+                ['name' => 'Gemini Business Free', 'url' => '/gemini-business-free', 'icon' => 'fa-solid fa-gift', 'order' => 1],
+                ['name' => 'Xóa Watermark Ảnh', 'url' => '/tools/remove-gemini-logo', 'icon' => 'fa-solid fa-eraser', 'order' => 2],
             ]],
             ['name' => '2FA Code', 'url' => '/tools/2fa', 'icon' => 'fa-solid fa-shield-halved', 'order' => 4],
             ['name' => 'Dịch vụ MXH', 'url' => '#', 'icon' => 'fa-solid fa-fire', 'order' => 5, 'children' => [

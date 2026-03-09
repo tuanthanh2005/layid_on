@@ -36,7 +36,7 @@
                                 @error('name') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Địa chỉ Email (Nhận tài khoản)</label>
+                                <label class="form-label fw-bold">Địa chỉ Email - Để kích hoạt tài khoản</label>
                                 <input type="email" wire:model="email" class="form-control form-control-lg rounded-3" placeholder="example@gmail.com" required>
                                 @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
