@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'pixelbin' => [
+        'key' => env('PIXELBIN_API_KEY'),
+    ],
+
+    'huggingface' => [
+        'key' => env('HUGGINGFACE_API_KEY'),
+    ],
+
 ];

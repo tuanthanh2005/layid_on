@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
 
 // Tools & Routes
 Route::get('/tools/2fa', TwoFactor::class)->name('tools.2fa');
+Route::get('/tools/remove-gemini-logo', \App\Livewire\Tools\RemoveGeminiLogo::class)->name('tools.remove-gemini');
 Route::get('/store/ai-accounts', AiAccounts::class)->name('store.ai');
 Route::get('/movies', Movies::class)->name('movies.index');
 Route::get('/movies/thien-than-ho-menh', MovieDetail::class)->name('movies.show');
