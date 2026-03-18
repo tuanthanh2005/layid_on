@@ -45,15 +45,15 @@
 
             <!-- List Post -->
             @forelse($latestPosts as $post)
-            <div style="display: flex; gap: 20px; margin-bottom: 25px; align-items: flex-start;">
-                <a href="{{ route('post.show', $post->slug) }}" style="flex-shrink: 0; display: block;">
-                    <div class="post-thumb" style="width: 280px; height: 160px; margin-bottom: 0; background: {{ $post->thumbnail ? 'url(\''.asset($post->thumbnail).'\') center/cover' : ($post->color ?? 'linear-gradient(135deg, #475569, #334155)') }}; display:flex; align-items:center; justify-content:center; color:white;">
+            <div class="post-list-item">
+                <a href="{{ route('post.show', $post->slug) }}" class="post-list-thumb">
+                    <div class="post-list-thumb-inner" style="background: {{ $post->thumbnail ? 'url(\''.asset($post->thumbnail).'\') center/cover' : ($post->color ?? 'linear-gradient(135deg, #475569, #334155)') }}; display:flex; align-items:center; justify-content:center; color:white;">
                         @if(!$post->thumbnail && $post->icon)
                         <i class="{{ $post->icon }} fa-4x"></i>
                         @endif
                     </div>
                 </a>
-                <div>
+                <div class="post-list-content">
                     <a href="{{ route('post.show', $post->slug) }}" class="post-title" style="font-size: 1.25rem;">{{ $post->title }}</a>
                     <div style="font-size: 0.85rem; color: var(--text-secondary); margin: 10px 0;"><i class="fa-regular fa-clock"></i> {{ $post->created_at->diffForHumans() }} &nbsp;&nbsp; <i class="fa-regular fa-comment"></i> {{ $post->comments_count }}</div>
                     <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0; line-height: 1.5;">{{ Str::limit($post->meta_description ?? strip_tags($post->content), 120) }}</p>

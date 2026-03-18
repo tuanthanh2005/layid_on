@@ -48,23 +48,25 @@
         <!-- Danh sách bài viết -->
         <div style="display: flex; flex-direction: column; gap: 25px;">
             @forelse($posts as $post)
-            <div style="display: flex; gap: 20px; align-items: flex-start;">
+            <div class="post-list-item">
                 <!-- Thumbnail -->
-                <a href="{{ route('post.show', $post->slug) }}" style="flex-shrink: 0; display: block; width: 220px; height: 145px; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm);">
-                    @if($post->thumbnail)
-                        <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" style="width:100%; height:100%; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                    @elseif($post->icon && $post->color)
-                        <div style="width:100%; height:100%; background: {{ $post->color }}; display:flex; align-items:center; justify-content:center; color:white;">
-                            <i class="{{ $post->icon }}" style="font-size: 3rem;"></i>
-                        </div>
-                    @else
-                        <div style="width:100%; height:100%; background: linear-gradient(135deg, #334155, #475569); display:flex; align-items:center; justify-content:center; color:white;">
-                            <i class="fa-solid fa-newspaper" style="font-size: 2.5rem; opacity:.5;"></i>
-                        </div>
-                    @endif
+                <a href="{{ route('post.show', $post->slug) }}" class="post-list-thumb">
+                    <div class="post-list-thumb-inner">
+                        @if($post->thumbnail)
+                            <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" style="width:100%; height:100%; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        @elseif($post->icon && $post->color)
+                            <div style="width:100%; height:100%; background: {{ $post->color }}; display:flex; align-items:center; justify-content:center; color:white;">
+                                <i class="{{ $post->icon }}" style="font-size: 3rem;"></i>
+                            </div>
+                        @else
+                            <div style="width:100%; height:100%; background: linear-gradient(135deg, #334155, #475569); display:flex; align-items:center; justify-content:center; color:white;">
+                                <i class="fa-solid fa-newspaper" style="font-size: 2.5rem; opacity:.5;"></i>
+                            </div>
+                        @endif
+                    </div>
                 </a>
 
-                <div style="flex:1; min-width:0;">
+                <div class="post-list-content">
                     <a href="{{ route('post.show', $post->slug) }}" class="post-title" style="font-size: 1.15rem; display: block; margin-bottom: 8px;">{{ $post->title }}</a>
                     <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 8px; display:flex; align-items:center; gap:12px;">
                         <span><i class="fa-regular fa-clock me-1"></i>{{ $post->updated_at->diffForHumans() }}</span>

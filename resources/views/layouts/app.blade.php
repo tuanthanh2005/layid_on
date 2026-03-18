@@ -61,8 +61,14 @@
                     <a href="/register" class="btn btn-primary" style="text-decoration:none; display:inline-block;">Đăng ký</a>
                 @endauth
             </div>
-            
-            <button class="mobile-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('show-mobile-nav')"><i class="fa-solid fa-bars"></i></button>
+            <div class="mobile-actions">
+                <button class="mobile-search-toggle-btn" onclick="document.querySelector('.search-bar').classList.toggle('show-mobile-search')">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="mobile-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('show-mobile-nav')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -73,10 +79,12 @@
                 @foreach($public_menus as $menu)
                     @if($menu->submenus->count() > 0)
                         <li class="has-dropdown">
-                            <a wire:navigate href="{{ $menu->url }}" class="{{ request()->is(ltrim($menu->url, '/').'*') ? 'active' : '' }}">
+                            <a wire:navigate href="{{ $menu->url }}" 
+                               class="{{ request()->is(ltrim($menu->url, '/').'*') ? 'active' : '' }}"
+                               onclick="if(window.innerWidth <= 768) { event.preventDefault(); this.parentElement.classList.toggle('open'); }">
                                 @if($menu->icon) <i class="{{ $menu->icon }}"></i> @endif
                                 {{ $menu->name }} 
-                                <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i>
+                                <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: auto;"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 @foreach($menu->submenus as $submenu)
@@ -101,19 +109,6 @@
             </ul>
         </div>
     </nav>
-    <style>
-        .show-mobile-nav {
-            display: flex !important;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: var(--bg-primary);
-            padding: 20px;
-            z-index: 999;
-        }
-    </style>
 
     <!-- Main Content Area -->
     <main class="app-main container">
