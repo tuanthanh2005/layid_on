@@ -79,9 +79,9 @@
                 @foreach($public_menus as $menu)
                     @if($menu->submenus->count() > 0)
                         <li class="has-dropdown">
-                            <a wire:navigate href="{{ $menu->url }}" 
+                            <a href="{{ $menu->url }}" 
                                class="{{ request()->is(ltrim($menu->url, '/').'*') ? 'active' : '' }}"
-                               onclick="if(window.innerWidth <= 768) { event.preventDefault(); this.parentElement.classList.toggle('open'); }">
+                               onclick="if(window.innerWidth <= 768) { event.preventDefault(); event.stopPropagation(); this.parentElement.classList.toggle('open'); return false; }">
                                 @if($menu->icon) <i class="{{ $menu->icon }}"></i> @endif
                                 {{ $menu->name }} 
                                 <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: auto;"></i>
