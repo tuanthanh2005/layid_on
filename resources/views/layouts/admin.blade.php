@@ -353,8 +353,11 @@
                 <li class="menu-item">
                     <a href="#"><i data-lucide="calendar" size="18"></i> Calendar</a>
                 </li>
-                <li class="menu-item">
-                    <a href="#"><i data-lucide="message-square" size="18"></i> Chat</a>
+                <li class="menu-item position-relative {{ request()->routeIs('admin.support-chat') ? 'active' : '' }}">
+                    <a href="{{ route('admin.support-chat') }}" class="d-flex align-items-center w-100 pe-5">
+                        <i data-lucide="message-square" size="18"></i> Hỗ trợ Trực tuyến
+                        <livewire:admin.chat-counter />
+                    </a>
                 </li>
                 @endif
                 
@@ -425,6 +428,7 @@
             </header>
 
             <div class="content-body">
+                {{ $slot ?? '' }}
                 @yield('content')
             </div>
         </main>

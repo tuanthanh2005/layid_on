@@ -61,7 +61,7 @@
                     <a href="/register" class="btn btn-primary" style="text-decoration:none; display:inline-block;">Đăng ký</a>
                 @endauth
             </div>
-            <div class="mobile-actions">
+            <div class="mobile-actions d-flex d-md-none">
                 <button class="mobile-search-toggle-btn" onclick="document.querySelector('.search-bar').classList.toggle('show-mobile-search')">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -106,6 +106,44 @@
                         </li>
                     @endif
                 @endforeach
+                
+                <!-- MOBILE AUTH ACTIONS -->
+                <li class="d-md-none border-top pt-3 mt-2">
+                    <a wire:navigate href="{{ route('orders.index') }}" class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-clipboard-list text-secondary"></i> Lịch sử đơn hàng
+                        @auth
+                            @php 
+                                $orderCount = Auth::user()->orders()->where('status', 'pending')->count() + 
+                                             Auth::user()->socialOrders()->where('status', 'pending')->count(); 
+                            @endphp
+                            @if($orderCount > 0)
+                                <span class="badge bg-danger rounded-pill">{{ $orderCount }}</span>
+                            @endif
+                        @endauth
+                    </a>
+                </li>
+                @auth
+                    <li class="d-md-none">
+                        @if(Auth::user()->role === 'admin')
+                            <a wire:navigate href="{{ route('admin.dashboard') }}" style="color: var(--accent-primary);"><i class="fa-solid fa-user-shield"></i> Quản trị viên</a>
+                        @else
+                            <a wire:navigate href="{{ route('profile.index') }}" style="color: var(--accent-primary);"><i class="fa-solid fa-user"></i> {{ Auth::user()->name }}</a>
+                        @endif
+                    </li>
+                    <li class="d-md-none">
+                        <form method="POST" action="{{ route('logout') }}" class="w-100 m-0">
+                            @csrf
+                            <button type="submit" style="background:none; border:none; padding:10px 0; color:#ef4444; font-size:0.95rem; font-weight:500; display:flex; align-items:center; gap:8px;">
+                                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                            </button>
+                        </form>
+                    </li>
+                @else
+                    <li class="d-md-none mt-3 pb-2 d-flex gap-3">
+                        <a href="/login" class="btn btn-outline flex-grow-1 text-center" style="padding: 8px 15px; justify-content:center;">Đăng nhập</a>
+                        <a href="/register" class="btn btn-primary flex-grow-1 text-center" style="padding: 8px 15px; border:none; justify-content:center;">Đăng ký</a>
+                    </li>
+                @endauth
             </ul>
         </div>
     </nav>
@@ -131,8 +169,8 @@
                 </div>
                 <p class="footer-desc text-muted mb-4" style="line-height: 1.6;">Lấy ID Online - Nền tảng tổng hợp thủ thuật AI đỉnh cao, cung cấp tài khoản AI Premium giá rẻ và các công cụ tự động hóa mạnh mẽ nhất hiện nay.</p>
                 <div class="contact-info small text-muted">
-                    <div class="mb-2"><i class="fa-solid fa-envelope me-2 text-primary"></i> contact@layid.online</div>
-                    <div><i class="fa-solid fa-location-dot me-2 text-primary"></i> Global Cloud Architecture</div>
+                    <div class="mb-2"><i class="fa-solid fa-envelope me-2 text-primary"></i> tranthanhtuanfix@gmail.com</div>
+                    <div><i class="fa-solid fa-location-dot me-2 text-primary"></i> TP.HCM</div>
                 </div>
             </div>
             <div class="footer-column">
@@ -168,7 +206,9 @@
             <p class="mb-0">&copy; 2026 <strong>Layid.online</strong>. Bảo lưu mọi quyền. <br class="d-md-none"> Tối ưu hóa hiệu suất bởi Layid Dev Team.</p>
         </div>
     </footer>
-   @livewire('components.floating-chatbot')
+    <!-- Chatbots -->
+    @livewire('components.floating-chatbot')
+    <livewire:components.support-chat-widget />
     <!-- Toast Container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
         @if(session('success'))

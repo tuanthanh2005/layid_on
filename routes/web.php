@@ -64,6 +64,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Movie Review Management
     Route::resource('movies', \App\Http\Controllers\Admin\MovieController::class)->names('admin.movies');
+
+    // Live Support Chat
+    Route::get('live-chat', \App\Livewire\Admin\SupportChatDashboard::class)->name('admin.support-chat');
 });
 
 Route::middleware('guest')->group(function () {
