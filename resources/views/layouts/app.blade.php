@@ -173,7 +173,7 @@
             <p class="mb-0">&copy; 2026 <strong>Layid.online</strong>. Bảo lưu mọi quyền. <br class="d-md-none"> Tối ưu hóa hiệu suất bởi Layid Dev Team.</p>
         </div>
     </footer>
-
+   @livewire('components.floating-chatbot')
     <!-- Toast Container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
         @if(session('success'))
