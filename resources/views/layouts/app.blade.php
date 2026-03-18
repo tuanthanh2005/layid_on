@@ -25,18 +25,17 @@
                 </a>
             </div>
             
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" placeholder="Bạn đang tìm sản phẩm AI, công cụ nào...">
-                <button class="search-btn">Tìm kiếm</button>
-            </div>
+            @livewire('header-search')
 
             <div class="auth-buttons">
                 <!-- Lịch sử đơn hàng (Orders) -->
                 <a href="{{ route('orders.index') }}" class="cart-icon" style="text-decoration:none; color: var(--text-primary); margin-right: 15px; font-size: 1.2rem; position: relative; display: flex; align-items: center;" title="Lịch sử đơn hàng">
                     <i class="fa-solid fa-clipboard-list"></i>
                     @auth
-                        @php $orderCount = Auth::user()->orders()->where('status', 'pending')->count(); @endphp
+                        @php 
+                            $orderCount = Auth::user()->orders()->where('status', 'pending')->count() + 
+                                         Auth::user()->socialOrders()->where('status', 'pending')->count(); 
+                        @endphp
                         @if($orderCount > 0)
                             <span class="cart-badge" style="position: absolute; top: -10px; right: -12px; background: #ef4444; color: white; font-size: 0.7rem; border-radius: 50%; padding: 2px 6px; font-weight: bold;">{{ $orderCount }}</span>
                         @endif
@@ -126,41 +125,52 @@
     </main>
 
     <!-- Footer -->
-    <footer class="app-footer">
+    <footer class="app-footer py-5 border-top bg-white">
         <div class="container footer-container">
             <div class="footer-column">
-                <div class="logo">
-                    <span class="logo-text">Tech<span class="highlight">Tools</span></span>
+                <div class="logo mb-3">
+                    <a href="/" style="text-decoration:none; color:inherit; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-microchip logo-icon" style="font-size: 1.5rem; color: #10b981;"></i>
+                        <span class="logo-text" style="font-size: 1.8rem;">Lay<span class="highlight">id</span></span>
+                    </a>
                 </div>
-                <p class="footer-desc">Cung cấp các công cụ tiện ích mạnh mẽ, hệ thống proxy ổn định, mẹo AI mới nhất và đa dạng các dịch vụ mạng xã hội.</p>
+                <p class="footer-desc text-muted mb-4" style="line-height: 1.6;">Lấy ID Online - Nền tảng tổng hợp thủ thuật AI đỉnh cao, cung cấp tài khoản AI Premium giá rẻ và các công cụ tự động hóa mạnh mẽ nhất hiện nay.</p>
+                <div class="contact-info small text-muted">
+                    <div class="mb-2"><i class="fa-solid fa-envelope me-2 text-primary"></i> contact@layid.online</div>
+                    <div><i class="fa-solid fa-location-dot me-2 text-primary"></i> Global Cloud Architecture</div>
+                </div>
             </div>
             <div class="footer-column">
-                <h3>Khám phá</h3>
-                <ul>
-                    <li><a wire:navigate href="/tools/2fa">Công cụ 2FA</a></li>
-                    <li><a wire:navigate href="/blog">Blog công nghệ</a></li>
-                    <li><a wire:navigate href="/placeholder/gemini">Mẹo sử dụng AI</a></li>
+                <h3 class="fw-bold fs-5 mb-4 text-dark">Khám phá AI</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a wire:navigate href="/gemini-business-free" class="text-decoration-none text-muted hover-primary transition-all">Thủ thuật Gemini</a></li>
+                    <li class="mb-2"><a wire:navigate href="/blog" class="text-decoration-none text-muted hover-primary transition-all">Blog Công nghệ</a></li>
+                    <li class="mb-2"><a wire:navigate href="/tools/remove-gemini-logo" class="text-decoration-none text-muted hover-primary transition-all">Xóa AI Watermark</a></li>
+                    <li class="mb-2"><a wire:navigate href="/blog" class="text-decoration-none text-muted hover-primary transition-all">Mẹo sử dụng ChatGPT</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Dịch vụ</h3>
-                <ul>
-                    <li><a wire:navigate href="/placeholder/buff">Tăng tương tác MXH</a></li>
-                    <li><a wire:navigate href="/courses">Học IT Miễn Phí</a></li>
-                    <li><a href="#">Hỗ trợ khách hàng</a></li>
+                <h3 class="fw-bold fs-5 mb-4 text-dark">Công cụ & Dịch vụ</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a wire:navigate href="/tools/2fa" class="text-decoration-none text-muted hover-primary transition-all">Lấy mã 2FA nhanh</a></li>
+                    <li class="mb-2"><a wire:navigate href="/store/ai-accounts" class="text-decoration-none text-muted hover-primary transition-all">Mua tài khoản AI giá rẻ</a></li>
+                    <li class="mb-2"><a wire:navigate href="/courses" class="text-decoration-none text-muted hover-primary transition-all">Học IT Miễn Phí</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-primary transition-all">Hỗ trợ khách hàng</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Theo dõi chúng tôi</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <h3 class="fw-bold fs-5 mb-4 text-dark">Theo dõi cộng đồng</h3>
+                <p class="small text-muted mb-3">Tham gia cộng đồng cùng hàng nghìn người dùng thông thái.</p>
+                <div class="social-links d-flex gap-3">
+                    <a href="#" class="social-icon-btn facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-btn youtube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-icon-btn tiktok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-btn telegram"><i class="fa-brands fa-telegram"></i></a>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Layid.online. Chuẩn SEO, Mobile Responsive (Laravel + Livewire).</p>
+        <div class="footer-bottom mt-5 pt-4 border-top text-center text-muted small">
+            <p class="mb-0">&copy; 2026 <strong>Layid.online</strong>. Bảo lưu mọi quyền. <br class="d-md-none"> Tối ưu hóa hiệu suất bởi Layid Dev Team.</p>
         </div>
     </footer>
 

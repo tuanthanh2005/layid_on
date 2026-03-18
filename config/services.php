@@ -43,4 +43,21 @@ return [
         'key' => env('HUGGINGFACE_API_KEY'),
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+    ],
+
+    'groq' => [
+        'key' => env('GROQ_API_KEY'),
+    ],
+
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+    ],
+
+    'pixelbin' => [
+        'token' => env('PIXELBIN_API_KEY'),
+        'cloud_name' => env('PIXELBIN_CLOUD_NAME', 'quickstart'),
+    ],
+
 ];

@@ -112,7 +112,25 @@
                 </div>
             </div>
 
-            <!-- Giao diện Thumbnail -->
+            <!-- Blog Sidebar -->
+            <div class="card border-0 shadow-sm mb-4 border-top border-3 border-primary">
+                <div class="card-header bg-white py-3 d-flex align-items-center gap-2">
+                    <i data-lucide="book-open" size="18" class="text-primary"></i>
+                    <div>
+                        <h5 class="fw-bold mb-0 text-primary">Trang Blog & Mẹo AI</h5>
+                        <small class="text-muted">Vị trí hiển thị riêng trên trang Blog</small>
+                    </div>
+                </div>
+                <div class="card-body px-4 py-3">
+                    <div class="form-check form-switch form-switch-lg d-flex justify-content-between px-0 align-items-center">
+                        <label class="form-check-label text-dark fw-medium pointer-label" for="toggle-blog-sidebar">
+                            <span class="badge bg-primary me-2 px-2 py-1">Sidebar Blog</span>
+                            Hiện trong "Có thể bạn quan tâm"
+                        </label>
+                        <input class="form-check-input ms-3 rounded-pill cursor-pointer" type="checkbox" name="is_blog_sidebar" id="toggle-blog-sidebar" value="1" {{ old('is_blog_sidebar', $post->is_blog_sidebar) ? 'checked' : '' }}>
+                    </div>
+                </div>
+            </div>
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body p-4">
                     <h5 class="card-title fw-bold mb-3 d-flex align-items-center gap-2"><i data-lucide="image" size="20" class="text-secondary"></i> Ảnh Đại Diện (Thumbnail)</h5>

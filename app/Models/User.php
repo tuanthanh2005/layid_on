@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Order::class);
     }
+
+    public function socialOrders()
+    {
+        return $this->hasMany(\App\Models\SocialOrder::class);
+    }
 }

@@ -54,6 +54,7 @@ class PostController extends Controller
         $post->is_recommended = $request->has('is_recommended');
         $post->is_interested = $request->has('is_interested');
         $post->is_video = $request->has('is_video');
+        $post->is_blog_sidebar = $request->has('is_blog_sidebar');
 
         $post->save();
 
@@ -100,6 +101,7 @@ class PostController extends Controller
         $post->is_recommended = $request->has('is_recommended');
         $post->is_interested = $request->has('is_interested');
         $post->is_video = $request->has('is_video');
+        $post->is_blog_sidebar = $request->has('is_blog_sidebar');
 
         $post->save();
 

@@ -236,7 +236,6 @@ class RemoveGeminiLogo extends Component
 
     public function render()
     {
-        return view('livewire.tools.remove-gemini-logo')
-            ->layout('layouts.app');
+        return view('livewire.tools.remove-gemini-logo');
     }
 }

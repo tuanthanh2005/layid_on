@@ -52,6 +52,18 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Order Management
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->names('admin.orders');
+
+    // Social Buff Management
+    Route::resource('social-services', \App\Http\Controllers\Admin\SocialServiceController::class)->names('admin.social-services');
+    Route::resource('social-servers', \App\Http\Controllers\Admin\SocialServerController::class)->names('admin.social-servers');
+    Route::resource('social-orders', \App\Http\Controllers\Admin\SocialOrderController::class)->names('admin.social-orders');
+
+    // Course Management
+    Route::resource('courses', \App\Http\Controllers\Admin\CourseController::class)->names('admin.courses');
+    Route::resource('lessons', \App\Http\Controllers\Admin\LessonController::class)->names('admin.lessons');
+
+    // Movie Review Management
+    Route::resource('movies', \App\Http\Controllers\Admin\MovieController::class)->names('admin.movies');
 });
 
 Route::middleware('guest')->group(function () {
@@ -76,15 +88,25 @@ Route::middleware('auth')->group(function () {
 
 // Tools & Routes
 Route::get('/tools/2fa', TwoFactor::class)->name('tools.2fa');
+Route::get('/2fa', TwoFactor::class)->name('2fa');
 Route::get('/tools/remove-gemini-logo', \App\Livewire\Tools\RemoveGeminiLogo::class)->name('tools.remove-gemini');
 Route::get('/gemini-business-free/{slug?}', GeminiBusinessFree::class)->name('gemini.business');
 Route::get('/store/ai-accounts', AiAccounts::class)->name('store.ai');
+Route::get('/social-service/{slug}', \App\Livewire\SocialBuff::class)->name('social.buff');
+
+// New AI Tools
+Route::get('/tools/youtube-summary', \App\Livewire\Tools\YoutubeSummary::class)->name('tools.yt-summary');
+Route::get('/tools/content-writer', \App\Livewire\Tools\ContentWriter::class)->name('tools.content-writer');
+Route::get('/tools/remove-bg', \App\Livewire\Tools\RemoveBg::class)->name('tools.remove-bg');
+
+
+// Course Routes
+Route::get('/hoc-it', \App\Livewire\Courses\CourseList::class)->name('course.index');
+Route::get('/hoc-it/{slug}/{lesson_slug?}', \App\Livewire\Courses\CourseDetail::class)->name('course.detail');
+
 Route::get('/movies', Movies::class)->name('movies.index');
-Route::get('/movies/thien-than-ho-menh', MovieDetail::class)->name('movies.show');
+Route::get('/movies/{slug}', MovieDetail::class)->name('movies.show');
 Route::get('/blog', Blog::class)->name('blog.index');
-// Courses
-Route::get('/courses', Courses::class)->name('courses.index');
-Route::get('/courses/javascript-mastery', CourseDetail::class)->name('courses.show');
 
 Route::get('/placeholder/{type}', Feature::class)->name('placeholder');
 

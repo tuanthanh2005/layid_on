@@ -10,7 +10,7 @@ class Post extends Model
         'title', 'slug', 'content', 
         'thumbnail', 'icon', 'color',
         'meta_title', 'meta_description',
-        'status', 'is_featured', 'is_grid', 'is_trending', 'is_recommended', 'is_interested', 'is_video',
+        'status', 'is_featured', 'is_grid', 'is_trending', 'is_recommended', 'is_interested', 'is_video', 'is_blog_sidebar',
         'views', 'comments_count'
     ];
 
@@ -22,5 +22,6 @@ class Post extends Model
         'is_recommended' => 'boolean',
         'is_interested' => 'boolean',
         'is_video' => 'boolean',
+        'is_blog_sidebar' => 'boolean',
     ];
 }

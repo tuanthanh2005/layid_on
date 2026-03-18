@@ -18,8 +18,8 @@ class MenuSeeder extends Seeder
             ]],
             ['name' => '2FA Code', 'url' => '/tools/2fa', 'icon' => 'fa-solid fa-shield-halved', 'order' => 4],
             ['name' => 'Dịch vụ MXH', 'url' => '#', 'icon' => 'fa-solid fa-fire', 'order' => 5, 'children' => [
-                ['name' => 'Buff TikTok', 'url' => '/placeholder/buff', 'icon' => 'fa-brands fa-tiktok', 'order' => 1],
-                ['name' => 'Buff Facebook', 'url' => '/placeholder/buff', 'icon' => 'fa-brands fa-facebook', 'order' => 2],
+                ['name' => 'Buff TikTok', 'url' => '/social-service/buff-tiktok', 'icon' => 'fa-brands fa-tiktok', 'order' => 1],
+                ['name' => 'Buff Facebook', 'url' => '/social-service/buff-facebook', 'icon' => 'fa-brands fa-facebook', 'order' => 2],
             ]],
             ['name' => 'Học IT Miễn Phí', 'url' => '/courses', 'icon' => 'fa-solid fa-graduation-cap', 'order' => 6],
             ['name' => 'Blog & Mẹo AI', 'url' => '/blog', 'icon' => 'fa-solid fa-book', 'order' => 7],

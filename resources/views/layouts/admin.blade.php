@@ -53,6 +53,8 @@
             top: 0;
             z-index: 1000;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-header {
@@ -76,6 +78,27 @@
         .sidebar-menu {
             padding: 20px 0;
             list-style: none;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar for Sidebar */
+        .sidebar-menu::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        .sidebar-menu:hover::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .menu-label {
@@ -284,7 +307,7 @@
                     <a href="{{ route('admin.menus.index') }}"><i data-lucide="menu" size="18"></i> Quản lý Menu</a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.posts.index') }}"><i data-lucide="file-text" size="18"></i> Quản lý trang chủ</a>
+                    <a href="{{ route('admin.posts.index') }}"><i data-lucide="book-open" size="18"></i> Blog & Mẹo AI</a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.gemini-tricks.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.gemini-tricks.index') }}"><i data-lucide="gem" size="18"></i> Thủ thuật Gemini</a>
@@ -297,6 +320,27 @@
                 </li>
                 <li class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.orders.index') }}"><i data-lucide="clipboard-list" size="18"></i> Quản lý đơn hàng</a>
+                </li>
+                <li class="menu-label">Dịch vụ Buff</li>
+                <li class="menu-item {{ request()->routeIs('admin.social-services.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.social-services.index') }}"><i data-lucide="share-2" size="18"></i> Cấu hình Dịch vụ</a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.social-servers.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.social-servers.index') }}"><i data-lucide="server" size="18"></i> Cấu hình Server & Giá</a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.social-orders.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.social-orders.index') }}"><i data-lucide="shopping-bag" size="18"></i> Quản lý Đơn Buff</a>
+                </li>
+                <li class="menu-label">Học IT Miễn Phí</li>
+                <li class="menu-item {{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.courses.index') }}"><i data-lucide="graduation-cap" size="18"></i> Cấu hình Khóa học</a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.lessons.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.lessons.index') }}"><i data-lucide="play-circle" size="18"></i> Quản lý Bài học</a>
+                </li>
+                <li class="menu-label">Review Phim</li>
+                <li class="menu-item {{ request()->routeIs('admin.movies.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.movies.index') }}"><i data-lucide="clapperboard" size="18"></i> Quản lý Review Phim</a>
                 </li>
                 @endif
                 @if(Auth::user()->role === 'admin')

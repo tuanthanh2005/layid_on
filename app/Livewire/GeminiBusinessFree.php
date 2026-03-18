@@ -42,6 +42,6 @@ class GeminiBusinessFree extends Component
         return view('livewire.gemini-business-free', [
             'mainPost' => $mainPost,
             'otherPosts' => $otherPosts
-        ])->layout('layouts.app');
+        ]);
     }
 }

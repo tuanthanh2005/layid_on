@@ -65,6 +65,36 @@
             </div>
             @endforelse
 
+            <!-- Review Phim Section -->
+            @if($movies->count() > 0)
+            <div class="section-title d-flex justify-content-between align-items-center">
+                <span>Review Phim Mới</span>
+                <a href="{{ route('movies.index') }}" class="text-primary small text-decoration-none fw-bold" style="font-size: 0.8rem; text-transform: none;">Xem tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
+            </div>
+            <div class="post-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 35px; gap: 15px;">
+                @foreach($movies as $movie)
+                <div class="post-card" style="border: 0; background: transparent;">
+                    <a href="{{ route('movies.show', $movie->slug) }}" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 180px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        @if($movie->thumbnail)
+                            <img src="{{ asset($movie->thumbnail) }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
+                        @else
+                            <div style="width: 100%; height: 100%; background: {{ $movie->color ?? '#1e293b' }}; display: flex; align-items: center; justify-content: center; color: white;">
+                                <i class="{{ $movie->icon ?? 'fa-solid fa-film' }} fa-3x"></i>
+                            </div>
+                        @endif
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
+                             <div style="font-size: 0.7rem; opacity: 0.8; margin-bottom: 2px;">{{ $movie->genre }}</div>
+                             <div style="font-size: 0.9rem; font-weight: 700; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">{{ $movie->title }}</div>
+                        </div>
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: #f59e0b; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; backdrop-filter: blur(4px);">
+                            <i class="fa-solid fa-star"></i> {{ number_format($movie->rating, 1) }}
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
             <!-- AI Account Store -->
             @if($aiProducts->count() > 0)
             <div class="section-title">Cửa Hàng Tài Khoản AI</div>
@@ -200,23 +230,61 @@
                     </div>
                 @endif
             </div>
-
-            <!-- Có thể bạn quan tâm -->
-            @if($interestedPosts->count() > 0)
-            <div class="sidebar-widget">
-                <h3 class="widget-title">Có thể bạn quan tâm</h3>
-                <ul class="widget-list">
-                    @foreach($interestedPosts as $interest)
-                    <li class="widget-item">
-                        <a href="{{ route('post.show', $interest->slug) }}" style="display: block;">
-                            <div class="widget-thumb" style="background: {{ $interest->thumbnail ? 'url(\''.asset($interest->thumbnail).'\') center/cover' : ($interest->color ?? 'linear-gradient(135deg, #bbf7d0, #86efac)') }}; border-radius: 4px; display:flex; align-items:center; justify-content:center;">
-                                @if(!$interest->thumbnail && $interest->icon)
-                                <i class="{{ $interest->icon }}" style="color:white; opacity: 0.8;"></i>
-                                @endif
+            <!-- Học IT Miễn Phí - Sidebar Widget -->
+            <div class="sidebar-widget mt-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h3 class="widget-title m-0">Học IT Miễn Phí</h3>
+                    <a href="{{ route('course.index') }}" class="text-primary small text-decoration-none fw-bold">Tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
+                </div>
+                
+                @if($courses->count() > 0)
+                    <div class="course-sidebar-list">
+                        @foreach($courses as $course)
+                        <a href="{{ route('course.detail', $course->slug) }}" class="text-decoration-none">
+                            <div class="d-flex align-items-center gap-3 p-2 mb-2 border-bottom hover-bg-light transition-all">
+                                <div class="course-thumb-mini rounded-2 overflow-hidden" style="width: 60px; height: 60px; flex-shrink: 0;">
+                                    @if($course->thumbnail)
+                                        <img src="{{ $course->thumbnail }}" class="w-100 h-100 object-fit-cover" alt="{{ $course->title }}">
+                                    @else
+                                        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-primary-subtle text-primary">
+                                            <i class="fa-solid fa-graduation-cap"></i>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="course-info-mini">
+                                    <h4 class="m-0 text-dark fw-bold" style="font-size: 0.85rem; line-height: 1.3;">{{ $course->title }}</h4>
+                                    <div class="small text-muted mt-1" style="font-size: 0.7rem;">
+                                        <span class="badge bg-light text-dark border me-1">{{ $course->level }}</span>
+                                        <span>{{ $course->lessons->count() }} bài học</span>
+                                    </div>
+                                </div>
                             </div>
                         </a>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="text-center py-4 bg-light rounded-3 border">
+                        <i class="fa-solid fa-graduation-cap opacity-20 display-6 mb-2"></i>
+                        <p class="text-muted small mb-0">Khóa học đang chuẩn bị</p>
+                    </div>
+                @endif
+            </div>
+
+            <!-- Có thể bạn quan tâm (Dịch vụ Buff) -->
+            @if($interestServices->count() > 0)
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Dịch vụ nổi bật</h3>
+                <ul class="widget-list">
+                    @foreach($interestServices as $service)
+                    <li class="widget-item">
+                        <a href="{{ route('social.buff', $service->slug) }}" class="widget-thumb bg-primary-subtle d-flex align-items-center justify-content-center" style="border-radius: 6px; text-decoration: none;">
+                            <i class="{{ $service->icon }} text-primary fs-5"></i>
+                        </a>
                         <div class="widget-info">
-                            <a href="{{ route('post.show', $interest->slug) }}" style="text-decoration:none;"><h4>{{ $interest->title }}</h4></a>
+                            <a href="{{ route('social.buff', $service->slug) }}" class="text-decoration-none">
+                                <h4 class="fw-bold mb-1" style="font-size: 0.9rem;">{{ $service->name }}</h4>
+                                <div class="small text-muted" style="font-size: 0.75rem;">Chất lượng & Uy tín</div>
+                            </a>
                         </div>
                     </li>
                     @endforeach
