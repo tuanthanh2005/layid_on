@@ -58,11 +58,18 @@ class SettingController extends Controller
             Setting::set('text_color', $request->text_color, 'color', 'interface');
         }
 
-        // 4. Tiêu đề Website (Tùy chọn thêm để Google nhận dạng tốt hơn)
+        // Tiêu đề Website
         if ($request->has('site_title')) {
             Setting::set('site_title', $request->site_title, 'text', 'interface');
         }
 
-        return redirect()->back()->with('success', 'Đã cập nhật giao diện thành công! Hãy tải lại trình duyệt để thấy thay đổi.');
+        // Mã xác minh Google
+        if ($request->has('google_verification')) {
+            // Trim lấy mã sạch
+            $code = trim($request->google_verification);
+            Setting::set('google_verification', $code, 'text', 'interface');
+        }
+
+        return redirect()->back()->with('success', 'Đã cập nhật giao diện thành công!');
     }
 }

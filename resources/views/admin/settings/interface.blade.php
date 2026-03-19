@@ -41,9 +41,15 @@
                         </div>
                     </div>
 
-                    <div class="mb-0 text-start">
+                    <div class="mb-4 text-start">
                         <label class="form-label fw-semibold">Tiêu đề Website (SEO Title)</label>
                         <input type="text" name="site_title" class="form-control" value="{{ $settings['site_title'] ?? 'LayID Online' }}" placeholder="VD: LayID - Công cụ AI cực mạnh">
+                    </div>
+
+                    <div class="mb-0 text-start">
+                        <label class="form-label fw-semibold">Mã xác minh Google (Meta Tag)</label>
+                        <input type="text" name="google_verification" class="form-control" value="{{ $settings['google_verification'] ?? '' }}" placeholder="Dán mã meta verification ở đây">
+                        <small class="text-muted small mt-1 d-block"><i data-lucide="info" size="14"></i> Chỉ dán mã (VD: CYV1H...), hệ thống sẽ tự tạo thẻ meta.</small>
                     </div>
                 </div>
             </div>
