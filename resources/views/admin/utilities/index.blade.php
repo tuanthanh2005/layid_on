@@ -49,8 +49,12 @@
                     <tr>
                         <td class="px-4 py-3 fw-bold text-muted">{{ $utility->order_index }}</td>
                         <td class="px-4 py-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3 shadow-sm" style="width: 60px; height: 60px; background: {{ $utility->color }}; color: white;">
-                                <i class="{{ $utility->icon }} fa-2x"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded-3 shadow-sm overflow-hidden" style="width: 60px; height: 60px; background: {{ $utility->color }}; color: white;">
+                                @if($utility->image)
+                                    <img src="{{ $utility->image }}" class="w-100 h-100" style="object-fit: cover;">
+                                @else
+                                    <i class="{{ $utility->icon }} fa-2x"></i>
+                                @endif
                             </div>
                         </td>
                         <td class="px-4 py-3">

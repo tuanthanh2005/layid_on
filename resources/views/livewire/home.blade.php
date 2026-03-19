@@ -132,7 +132,13 @@
                 @foreach($utilities as $utility)
                 <div class="post-card">
                     <a href="{{ $utility->url }}" style="display: block;">
-                        <div class="post-thumb" style="height: 120px; background: {{ $utility->color }}; display:flex; align-items:center; justify-content:center; color:white;"><i class="{{ $utility->icon }} fa-3x"></i></div>
+                        <div class="post-thumb" style="height: 120px; background: {{ $utility->color }}; display:flex; align-items:center; justify-content:center; color:white; overflow: hidden; border-radius: 8px;">
+                            @if($utility->image)
+                                <img src="{{ asset($utility->image) }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            @else
+                                <i class="{{ $utility->icon }} fa-3x"></i>
+                            @endif
+                        </div>
                     </a>
                     <a href="{{ $utility->url }}" class="post-title" style="font-size: 1rem; font-weight: 500;">
                         {{ $utility->title }}

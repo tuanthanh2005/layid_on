@@ -8,7 +8,7 @@
     </a>
 </div>
 
-<form action="{{ route('admin.utilities.update', $utility) }}" method="POST">
+<form action="{{ route('admin.utilities.update', $utility) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     
@@ -44,8 +44,20 @@
                     <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="settings" class="me-2 text-primary" size="20"></i> Giao diện hiển thị</h5>
                     
                     <div class="mb-4">
+                        <label class="form-label text-muted fw-bold"><i data-lucide="image" size="16" class="me-1"></i> Ảnh đại diện (Thay cho Icon)</label>
+                        @if($utility->image)
+                            <div class="mb-2 p-1 border rounded bg-light text-center">
+                                <img src="{{ $utility->image }}" class="img-fluid rounded shadow-sm" style="max-height: 100px;">
+                            </div>
+                        @endif
+                        <input type="file" name="image_file" class="form-control" accept="image/*">
+                        <div class="text-muted small mt-1">Nếu chọn ảnh này, icon bên dưới sẽ bị ghi đè.</div>
+                    </div>
+
+                    <div class="mb-4">
                         <label class="form-label text-muted">Mã Icon (FontAwesome)</label>
-                        <input type="text" name="icon" class="form-control text-monospace" value="{{ old('icon', $utility->icon) }}" required>
+                        <input type="text" name="icon" class="form-control text-monospace" value="{{ old('icon', $utility->icon) }}">
+                        <div class="text-muted small mt-1">VD: fa-solid fa-magic-sparkles</div>
                     </div>
 
                     <div class="mb-4">

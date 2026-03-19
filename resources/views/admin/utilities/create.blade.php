@@ -8,7 +8,7 @@
     </a>
 </div>
 
-<form action="{{ route('admin.utilities.store') }}" method="POST">
+<form action="{{ route('admin.utilities.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     
     <div class="row">
@@ -43,8 +43,14 @@
                     <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="palette" class="me-2 text-primary" size="20"></i> Giao diện hiển thị</h5>
                     
                     <div class="mb-4">
+                        <label class="form-label text-muted fw-bold"><i data-lucide="image" size="16" class="me-1"></i> Ảnh đại diện (Thay cho Icon)</label>
+                        <input type="file" name="image_file" class="form-control" accept="image/*">
+                        <small class="text-muted d-block mt-1">Nên dùng ảnh vuông (Vd: 200x200). Nếu chọn ảnh, icon bên dưới sẽ bị ẩn.</small>
+                    </div>
+
+                    <div class="mb-4">
                         <label class="form-label text-muted">Mã Icon (FontAwesome)</label>
-                        <input type="text" name="icon" class="form-control text-monospace" value="{{ old('icon', 'fa-brands fa-php') }}" placeholder="fa-brands ...">
+                        <input type="text" name="icon" class="form-control text-monospace" value="{{ old('icon', 'fa-solid fa-magic-sparkles') }}" placeholder="fa-brands ...">
                         <small class="text-muted d-block mt-1">Sử dụng FontAwesome 6 style.</small>
                     </div>
 

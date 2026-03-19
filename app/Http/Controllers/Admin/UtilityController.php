@@ -32,6 +32,14 @@ class UtilityController extends Controller
         $ut->description = $request->description;
         $ut->url = $request->url;
         $ut->icon = $request->icon;
+        
+        if ($request->hasFile('image_file')) {
+            $file = $request->file('image_file');
+            $filename = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+            $file->storeAs('uploads/utilities', $filename, 'public_uploads');
+            $ut->image = '/uploads/utilities/' . $filename;
+        }
+
         $ut->color = $request->color;
         $ut->status = $request->has('status');
         $ut->order_index = $request->order_index ?? 0;
@@ -57,6 +65,14 @@ class UtilityController extends Controller
         $utility->description = $request->description;
         $utility->url = $request->url;
         $utility->icon = $request->icon;
+        
+        if ($request->hasFile('image_file')) {
+            $file = $request->file('image_file');
+            $filename = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+            $file->storeAs('uploads/utilities', $filename, 'public_uploads');
+            $utility->image = '/uploads/utilities/' . $filename;
+        }
+
         $utility->color = $request->color;
         $utility->status = $request->has('status');
         $utility->order_index = $request->order_index ?? 0;
