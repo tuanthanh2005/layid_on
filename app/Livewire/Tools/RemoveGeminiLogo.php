@@ -230,7 +230,12 @@ class RemoveGeminiLogo extends Component
         if (!$success) {
             $lastError = error_get_last();
             $detail = $lastError ? ": " . $lastError['message'] : "";
-            throw new \RuntimeException("Không thể ghi file ảnh vào hệ thống{$detail}. Vui lòng kiểm tra quyền (write permission) của thư mục: public/temp/watermark");
+            throw new \RuntimeException("Không thể ghi file vào: {$dir}. Lỗi{$detail}. Hãy kiểm tra quyền ghi của thư mục này.");
+        }
+
+        // Kiểm tra chắc chắn file đã tồn tại trên đĩa sau khi lưu
+        if (!file_exists($dir . '/' . $filename)) {
+            throw new \RuntimeException("PHP báo lưu thành công nhưng không tìm thấy file tại: " . $dir . '/' . $filename);
         }
 
         // Xoá file temp cũ (nếu có) trước khi gán mới
