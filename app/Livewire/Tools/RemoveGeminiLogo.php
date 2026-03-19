@@ -194,20 +194,32 @@ class RemoveGeminiLogo extends Component
     {
         $dir = public_path('temp/watermark');
         if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
+            if (!@mkdir($dir, 0755, true)) {
+                throw new \RuntimeException("Không thể tạo thư mục lưu trữ tại: {$dir}. Vui lòng kiểm tra quyền (permission) trên server.");
+            }
         }
 
         $uid = uniqid('gwm_', true);
+        $success = false;
 
         if (str_contains($mimeType, 'png')) {
             $filename = "{$uid}.png";
-            imagepng($img, $dir . '/' . $filename, 6);
+            $success = @imagepng($img, $dir . '/' . $filename, 6);
         } elseif (str_contains($mimeType, 'webp')) {
+            if (!function_exists('imagewebp')) {
+                throw new \RuntimeException("Server của bạn thiếu thư viện PHP-GD hoặc không hỗ trợ định dạng WebP.");
+            }
             $filename = "{$uid}.webp";
-            imagewebp($img, $dir . '/' . $filename, 90);
+            $success = @imagewebp($img, $dir . '/' . $filename, 90);
         } else {
             $filename = "{$uid}.jpg";
-            imagejpeg($img, $dir . '/' . $filename, 92);
+            $success = @imagejpeg($img, $dir . '/' . $filename, 92);
+        }
+
+        if (!$success) {
+            $lastError = error_get_last();
+            $detail = $lastError ? ": " . $lastError['message'] : "";
+            throw new \RuntimeException("Không thể ghi file ảnh vào hệ thống{$detail}. Vui lòng kiểm tra quyền (write permission) của thư mục: public/temp/watermark");
         }
 
         // Xoá file temp cũ (nếu có) trước khi gán mới
