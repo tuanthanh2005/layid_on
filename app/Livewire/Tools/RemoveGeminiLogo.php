@@ -289,8 +289,11 @@ class RemoveGeminiLogo extends Component
 
     public function clearAllTempFiles()
     {
-        // Chỉ admin mới được dùng nút "Dọn dẹp tất cả" (nếu bạn có hệ thống auth)
-        // if (!auth()->check() || !auth()->user()->is_admin) return;
+        // Chặn người dùng bình thường: Chỉ cho phép admin hoặc user ID 1
+        if (!auth()->check() || (!auth()->user()->is_admin && auth()->user()->role !== 'admin' && auth()->id() !== 1)) {
+            $this->errorMessage = "Bạn không có quyền thực hiện hành động này.";
+            return;
+        }
 
         try {
             $root = config('filesystems.disks.public_uploads.root', public_path());

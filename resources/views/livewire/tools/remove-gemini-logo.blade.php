@@ -188,9 +188,8 @@
             </div>
             </div>
             
-            <!-- Admin Tool Section (Chỉ hiện cho Admin) -->
-            @auth
-                {{-- Giả sử bạn kiểm tra quyền Admin ở đây, ví dụ: if(auth()->user()->role == 'admin') --}}
+            <!-- Admin Tool Section (Chỉ hiện cho Admin thực thụ) -->
+            @if(auth()->check() && (optional(auth()->user())->is_admin || optional(auth()->user())->role == 'admin' || auth()->id() == 1))
                 <div class="mt-5 pt-5 border-top">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="small text-muted">
@@ -214,7 +213,7 @@
                         </div>
                     @endif
                 </div>
-            @endauth
+            @endif
         </div>
     </div>
 </div>
