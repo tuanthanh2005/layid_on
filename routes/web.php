@@ -68,6 +68,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Live Support Chat
     Route::get('live-chat', \App\Livewire\Admin\SupportChatDashboard::class)->name('admin.support-chat');
+
+    // System Settings (Management)
+    Route::get('settings/interface', [\App\Http\Controllers\Admin\SettingController::class, 'interface'])->name('admin.settings.interface');
+    Route::post('settings/interface/update', [\App\Http\Controllers\Admin\SettingController::class, 'updateInterface'])->name('admin.settings.update');
 });
 
 Route::middleware('guest')->group(function () {

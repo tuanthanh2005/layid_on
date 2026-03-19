@@ -163,7 +163,7 @@
 
 /* HEADER */
 .ai-chat-header {
-    background: linear-gradient(135deg, #0084ff 0%, #00a1ff 100%);
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     padding: 16px 20px;
     color: white;
     display: flex;
@@ -274,8 +274,8 @@
 
 .ai-suggestion-btn:hover {
     background: #f0f2f5;
-    border-color: #0084ff;
-    color: #0084ff;
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
 }
 
 /* CHAT BODY */
@@ -330,7 +330,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0084ff 0%, #00a1ff 100%);
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     color: white;
     display: flex;
     justify-content: center;
@@ -371,10 +371,10 @@
 }
 
 .ai-bubble-user {
-    background: linear-gradient(135deg, #0084ff 0%, #00a1ff 100%);
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     color: #ffffff;
     border-radius: 18px 18px 4px 18px; /* Messenger User Bubble */
-    box-shadow: 0 1px 3px rgba(0, 132, 255, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .ai-time {
@@ -434,8 +434,8 @@
 
 .ai-input-wrapper:focus-within {
     background-color: #ffffff;
-    border-color: #0084ff;
-    box-shadow: 0 0 0 2px rgba(0,132,255,0.15);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
 }
 
 #aiChatInput {
@@ -459,7 +459,7 @@
 .ai-send-button {
     background: transparent;
     border: none;
-    color: #0084ff;
+    color: var(--accent-primary);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -495,11 +495,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0084ff 0%, #00a1ff 100%);
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     border: none;
     color: white;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,132,255,0.4);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     display: flex;
     justify-content: center;
     align-items: center;

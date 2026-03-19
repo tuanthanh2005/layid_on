@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adminator - Premium Admin Dashboard</title>
+    <title>{{ \App\Models\Setting::getVal('site_title', 'Adminator - Premium Admin Dashboard') }}</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ \App\Models\Setting::getVal('favicon', '/favicon.ico') }}">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -21,6 +23,11 @@
             --accent-color: #3e8ef7;
             --border-color: #eef2f7;
             --card-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+        }
+
+        /* Ghi đè màu sắc Admin động */
+        :root {
+            --accent-color: {{ \App\Models\Setting::getVal('theme_color', '#3e8ef7') }};
         }
 
         * {
@@ -341,6 +348,9 @@
                 <li class="menu-label">Review Phim</li>
                 <li class="menu-item {{ request()->routeIs('admin.movies.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.movies.index') }}"><i data-lucide="clapperboard" size="18"></i> Quản lý Review Phim</a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.settings.interface') }}"><i data-lucide="palette" size="18"></i> Cấu hình giao diện</a>
                 </li>
                 @endif
                 @if(Auth::user()->role === 'admin')

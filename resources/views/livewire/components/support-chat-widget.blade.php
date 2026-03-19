@@ -1,5 +1,5 @@
 <div class="support-chat-container">
-    <div class="support-fab" wire:click="toggleChat" style="background: {{ $isOpen ? '#64748b' : 'linear-gradient(135deg, #10b981, #059669)' }};">
+    <div class="support-fab" wire:click="toggleChat" style="background: {{ $isOpen ? '#64748b' : 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' }}; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
         @if($isOpen)
             <i class="fa-solid fa-times" style="font-size: 1.5rem; color: #fff;"></i>
         @else
@@ -200,10 +200,10 @@
 
         .msg-bubble.user {
             align-self: flex-end;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             color: #fff;
             border-bottom-right-radius: 4px;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .msg-time {
@@ -231,12 +231,8 @@
             font-family: inherit;
         }
         
-        .support-input:focus {
-            box-shadow: inset 0 0 0 1px #10b981;
-        }
-
         .support-send-btn {
-            background: #10b981;
+            background: var(--accent-primary);
             color: #fff;
             width: 42px;
             height: 42px;
@@ -248,7 +244,7 @@
             cursor: pointer;
             transition: all 0.2s;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
         .support-send-btn:disabled {
@@ -259,7 +255,30 @@
 
         .support-send-btn:hover:not(:disabled) {
             transform: scale(1.05);
-            background: #059669;
+            background: var(--accent-secondary);
+        }
+
+        .support-header {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .online-indicator {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .support-input:focus {
+            box-shadow: inset 0 0 0 1px var(--accent-primary);
         }
     </style>
     

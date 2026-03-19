@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Trang web chuyên cung cấp tool công nghệ: lấy mã 2FA, AI tips, chia sẻ thủ thuật.">
-    <title>{{ $title ?? 'Layid - Trang chuyên Công nghệ & AI' }}</title>
+    <title>{{ \App\Models\Setting::getVal('site_title', $title ?? 'Layid - Trang chuyên Công nghệ & AI') }}</title>
+    <!-- Favicon động -->
+    <link rel="icon" type="image/x-icon" href="{{ \App\Models\Setting::getVal('favicon', '/favicon.ico') }}">
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -12,6 +15,48 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    
+    <!-- CSS Biến màu động (Ưu tiên cao nhất để ghi đè màu xanh lá) -->
+    <style>
+        :root {
+            --accent-primary: {{ \App\Models\Setting::getVal('theme_color', '#10b981') }};
+            --accent-secondary: {{ \App\Models\Setting::getVal('theme_color_sub', '#059669') }};
+            --primary-color: {{ \App\Models\Setting::getVal('theme_color', '#10b981') }};
+            --bg-color: {{ \App\Models\Setting::getVal('bg_color', '#f8fafc') }};
+            --text-primary: {{ \App\Models\Setting::getVal('text_color', '#334155') }};
+        }
+        body { background-color: var(--bg-color) !important; color: var(--text-primary) !important; }
+        
+        /* Ghi đè màu xanh lá của Zilly mặc định */
+        .highlight, .logo-icon, .logo-text .highlight, .logo i, .nav-links a:hover, .nav-links a.active, .action-link, .tool-icon, .dropdown-menu li a:hover, .footer-column ul li a:hover {
+            color: var(--accent-primary) !important;
+        }
+        
+        .btn-primary, .bg-primary, .badge.bg-danger, .cart-badge, .search-btn, .tool-icon-wrapper:hover, .social-icon-btn:hover {
+            background-color: var(--accent-primary) !important;
+            border-color: var(--accent-primary) !important;
+            color: white !important;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-primary) !important;
+            color: var(--accent-primary) !important;
+            background-color: transparent !important;
+        }
+
+        /* Nút Tìm kiếm & Các nút submit */
+        .search-btn, button#search-btn, .search-bar button, button[type="submit"].btn-primary {
+            background-color: var(--accent-primary) !important;
+            border-color: var(--accent-primary) !important;
+        }
+        .search-btn:hover {
+            background-color: var(--accent-secondary) !important;
+        }
+        
+        .search-bar:focus-within, .form-group input:focus {
+            border-color: var(--accent-primary) !important;
+        }
+    </style>
     @livewireStyles
 </head>
 <body class="light-theme">
