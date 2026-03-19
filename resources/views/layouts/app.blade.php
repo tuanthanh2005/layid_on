@@ -4,11 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Trang web chuyên cung cấp tool công nghệ: lấy mã 2FA, AI tips, chia sẻ thủ thuật.">
-    <!-- Google SEO Verification -->
-    @php $gCode = \App\Models\Setting::getVal('google_verification'); @endphp
-    @if($gCode)
-    <meta name="google-site-verification" content="{{ $gCode }}" />
-    @endif
+    <!-- Google Site Verification - Hardcoded -->
+    <meta name="google-site-verification" content="CYV1HbKNuQkpzF8A-7k-VGvZC0m9X7F5zs7gNOn2-o8" />
     <title>{{ \App\Models\Setting::getVal('site_title', $title ?? 'Layid - Trang chuyên Công nghệ & AI') }}</title>
     <!-- Favicon động -->
     <link rel="icon" type="image/x-icon" href="{{ \App\Models\Setting::getVal('favicon', '/favicon.ico') }}">
