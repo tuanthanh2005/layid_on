@@ -97,7 +97,7 @@ class RemoveBg extends Component
             $scriptPath = app_path('Livewire' . DIRECTORY_SEPARATOR . 'Tools' . DIRECTORY_SEPARATOR . 'remove_bg.py');
 
             $command = "$pythonPath \"$scriptPath\" \"$fullInputPath\" \"$fullOutputPath\" 2>&1";
-            exec($command, $output, $returnCode);
+            \exec($command, $output, $returnCode);
 
             if ($returnCode !== 0) {
                 throw new \Exception('Lỗi xử lý AI: ' . implode(' | ', $output));
