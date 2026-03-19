@@ -33,7 +33,8 @@ class RemoveGeminiLogo extends Component
 
         // Lưu ngay vào public để preview tránh lỗi 401 trên server
         try {
-            $dir = public_path('temp/watermark');
+            $root = config('filesystems.disks.public_uploads.root', public_path());
+            $dir = $root . '/temp/watermark';
             if (!is_dir($dir)) @mkdir($dir, 0755, true);
             
             $uid = uniqid('raw_', true);
@@ -53,10 +54,11 @@ class RemoveGeminiLogo extends Component
     // ─────────────────────────────────────────────────────────────────────────
     private function loadAlphaMap(int $size): array
     {
-        $bgPath = public_path("assets/watermark/bg_{$size}.png");
+        $root = config('filesystems.disks.public_uploads.root', public_path());
+        $bgPath = $root . "/assets/watermark/bg_{$size}.png";
 
         if (!file_exists($bgPath)) {
-            throw new \RuntimeException("Alpha map file not found: bg_{$size}.png");
+            throw new \RuntimeException("Không tìm thấy file alpha map tại: {$bgPath}");
         }
 
         $bg = imagecreatefrompng($bgPath);
@@ -221,7 +223,9 @@ class RemoveGeminiLogo extends Component
     // ─────────────────────────────────────────────────────────────────────────
     private function saveToTempFile($img, string $mimeType): void
     {
-        $dir = public_path('temp/watermark');
+        $root = config('filesystems.disks.public_uploads.root', public_path());
+        $dir = $root . '/temp/watermark';
+
         if (!is_dir($dir)) {
             if (!@mkdir($dir, 0755, true)) {
                 throw new \RuntimeException("Không thể tạo thư mục lưu trữ tại: {$dir}. Vui lòng kiểm tra quyền (permission) trên server.");
