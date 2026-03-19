@@ -64,7 +64,7 @@
                     <!-- Preview and Action -->
                     <div class="preview-area text-center">
                         <div class="position-relative d-inline-block rounded-4 overflow-hidden border shadow-sm mb-4" style="max-width: 100%;">
-                            <img src="{{ $image->temporaryUrl() }}" class="img-fluid" style="max-height: 500px;">
+                            <img src="{{ $previewUrl ?? $image->temporaryUrl() }}" class="img-fluid" style="max-height: 500px;">
 
                             <!-- Processing overlay — luôn trong DOM, wire:loading tự show/hide -->
                             <div id="gemini-processing-overlay"
@@ -122,7 +122,7 @@
                         <div class="row g-4 align-items-center">
                             <div class="col-md-7 text-center">
                                 <div class="rounded-4 overflow-hidden border shadow-sm">
-                                    <img src="{{ $processedImageUrl ?? $image->temporaryUrl() }}" class="img-fluid" style="background: white;">
+                                    <img src="{{ $processedImageUrl ?? $previewUrl ?? $image->temporaryUrl() }}" class="img-fluid" style="background: white;">
                                 </div>
                             </div>
                             <div class="col-md-5">

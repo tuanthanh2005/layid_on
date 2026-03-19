@@ -12,6 +12,8 @@ class RemoveGeminiLogo extends Component
     public $image;
     public $processed         = false;
     public $processing        = false;
+    public $previewUrl        = null;  // URL ảnh gốc vừa upload lên để preview
+    public $rawFilePath       = null;  // Đường dẫn file gốc trên đĩa để xóa sau
     public $processedImageUrl = null;  // chỉ lưu URL ngắn, KHÔNG phải base64
     public $tempFilePath      = null;  // đường dẫn file temp để dọn khi reset
     public $errorMessage      = null;
@@ -28,6 +30,22 @@ class RemoveGeminiLogo extends Component
         $this->processed      = false;
         $this->processedImageUrl = null;
         $this->errorMessage   = null;
+
+        // Lưu ngay vào public để preview tránh lỗi 401 trên server
+        try {
+            $dir = public_path('temp/watermark');
+            if (!is_dir($dir)) @mkdir($dir, 0755, true);
+            
+            $uid = uniqid('raw_', true);
+            $ext = $this->image->getClientOriginalExtension();
+            $filename = "{$uid}.{$ext}";
+            
+            $this->image->storeAs('temp/watermark', $filename, 'public_uploads');
+            $this->previewUrl = asset("temp/watermark/{$filename}");
+            $this->rawFilePath = $dir . '/' . $filename;
+        } catch (\Throwable $e) {
+            $this->errorMessage = "Không thể tạo file preview: " . $e->getMessage();
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -259,7 +277,10 @@ class RemoveGeminiLogo extends Component
     public function resetTool()
     {
         $this->deleteTempFile();  // xoá file ảnh khỏi disk trước
-        $this->reset(['image', 'processed', 'processing', 'processedImageUrl', 'tempFilePath', 'errorMessage']);
+        if ($this->rawFilePath && file_exists($this->rawFilePath)) {
+            @unlink($this->rawFilePath);
+        }
+        $this->reset(['image', 'processed', 'processing', 'previewUrl', 'rawFilePath', 'processedImageUrl', 'tempFilePath', 'errorMessage']);
     }
 
     public function render()
