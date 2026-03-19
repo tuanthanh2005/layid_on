@@ -26,35 +26,35 @@
             </div>
 
             {{-- Upload Zone --}}
-            <label class="rmbg-dropzone @if($image) has-image @endif" wire:ignore.self id="dropzone-label" for="rmbg-file-input">
+            <label class="rmbg-dropzone @if($image) has-image @endif" wire:ignore id="dropzone-label" for="rmbg-file-input">
                 <input
                     type="file"
                     id="rmbg-file-input"
                     wire:model="image"
                     accept="image/*"
                     class="rmbg-dropzone__input"
+                    onchange="handlePreview(this)"
                 >
 
-                {{-- Preview image if selected --}}
-                @if($previewUrl)
-                    <div class="rmbg-dropzone__preview">
-                        <img src="{{ $previewUrl }}" alt="Preview" class="rmbg-dropzone__img" id="upload-preview">
-                        <div class="rmbg-dropzone__overlay">
-                            <i class="fa-solid fa-image"></i>
-                            <span>Đổi ảnh</span>
-                        </div>
+                {{-- Preview image container --}}
+                <div class="rmbg-dropzone__preview" id="preview-container" style="display: {{ $previewUrl ? 'flex' : 'none' }};">
+                    <img src="{{ $previewUrl }}" alt="Preview" class="rmbg-dropzone__img" id="upload-preview-img">
+                    <div class="rmbg-dropzone__overlay">
+                        <i class="fa-solid fa-image"></i>
+                        <span>Đổi ảnh</span>
                     </div>
-                @else
-                    <div class="rmbg-dropzone__placeholder" id="rmbg-placeholder">
-                        <div class="rmbg-dropzone__icon-wrap">
-                            <i class="fa-solid fa-image"></i>
-                        </div>
-                        <p class="rmbg-dropzone__main-text">Kéo thả hoặc nhấp để chọn ảnh</p>
-                        <p class="rmbg-dropzone__sub-text">JPG, PNG, WEBP — Tối đa 10MB</p>
-                    </div>
-                @endif
+                </div>
 
-                {{-- Uploading Livewire spinner - only for file upload --}}
+                {{-- Placeholder --}}
+                <div class="rmbg-dropzone__placeholder" id="rmbg-placeholder" style="display: {{ $previewUrl ? 'none' : 'flex' }};">
+                    <div class="rmbg-dropzone__icon-wrap">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <p class="rmbg-dropzone__main-text">Kéo thả hoặc nhấp để chọn ảnh</p>
+                    <p class="rmbg-dropzone__sub-text">JPG, PNG, WEBP — Tối đa 10MB</p>
+                </div>
+
+                {{-- Uploading Livewire spinner --}}
                 <div wire:loading wire:target="image" class="rmbg-dropzone__spinner">
                     <div class="spinner-ring"></div>
                     <span>Đang tải lên...</span>
@@ -775,3 +775,32 @@
         to { transform: rotate(360deg); }
     }
 </style>
+
+<script>
+    function handlePreview(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            const previewImg = document.getElementById('upload-preview-img');
+            const previewContainer = document.getElementById('preview-container');
+            const placeholder = document.getElementById('rmbg-placeholder');
+
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewContainer.style.display = 'flex';
+                placeholder.style.display = 'none';
+                document.getElementById('dropzone-label').classList.add('has-image');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    // Đồng bộ lại khi Livewire render (nếu cần)
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('reset-preview', () => {
+             document.getElementById('upload-preview-img').src = '';
+             document.getElementById('preview-container').style.display = 'none';
+             document.getElementById('rmbg-placeholder').style.display = 'flex';
+             document.getElementById('dropzone-label').classList.remove('has-image');
+        });
+    });
+</script>
