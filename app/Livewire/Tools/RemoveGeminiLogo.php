@@ -287,6 +287,36 @@ class RemoveGeminiLogo extends Component
         $this->reset(['image', 'processed', 'processing', 'previewUrl', 'rawFilePath', 'processedImageUrl', 'tempFilePath', 'errorMessage']);
     }
 
+    public function clearAllTempFiles()
+    {
+        // Chỉ admin mới được dùng nút "Dọn dẹp tất cả" (nếu bạn có hệ thống auth)
+        // if (!auth()->check() || !auth()->user()->is_admin) return;
+
+        try {
+            $root = config('filesystems.disks.public_uploads.root', public_path());
+            $dir = $root . '/temp/watermark';
+            
+            if (is_dir($dir)) {
+                $files = glob($dir . '/*');
+                $now = time();
+                $count = 0;
+                
+                foreach ($files as $file) {
+                    if (is_file($file)) {
+                        // Xóa các file đã cũ hơn 1 tiếng (3600 giây)
+                        if ($now - filemtime($file) >= 3600) {
+                            @unlink($file);
+                            $count++;
+                        }
+                    }
+                }
+                session()->flash('successTool', "Đã dọn dẹp thành công {$count} tệp rác cũ hơn 1 tiếng.");
+            }
+        } catch (\Throwable $e) {
+            $this->errorMessage = "Lỗi dọn dẹp: " . $e->getMessage();
+        }
+    }
+
     public function render()
     {
         return view('livewire.tools.remove-gemini-logo');
