@@ -93,14 +93,25 @@ class RemoveGeminiLogo extends Component
 
             // ── 1. Load source image into GD resource ──────────────────────
             $img = match (true) {
-                str_contains($mimeType, 'png')  => imagecreatefrompng($realPath),
-                str_contains($mimeType, 'webp') => imagecreatefromwebp($realPath),
-                str_contains($mimeType, 'gif')  => imagecreatefromgif($realPath),
-                default                         => imagecreatefromjpeg($realPath),
+                str_contains($mimeType, 'png')  => function_exists('imagecreatefrompng') 
+                    ? imagecreatefrompng($realPath) 
+                    : throw new \RuntimeException('Server không hỗ trợ định dạng PNG (thiếu libpng).'),
+                
+                str_contains($mimeType, 'webp') => function_exists('imagecreatefromwebp') 
+                    ? imagecreatefromwebp($realPath) 
+                    : throw new \RuntimeException('Server không hỗ trợ định dạng WebP (thiếu libwebp).'),
+                
+                str_contains($mimeType, 'gif')  => function_exists('imagecreatefromgif') 
+                    ? imagecreatefromgif($realPath) 
+                    : throw new \RuntimeException('Server không hỗ trợ định dạng GIF.'),
+                
+                default                         => function_exists('imagecreatefromjpeg') 
+                    ? imagecreatefromjpeg($realPath) 
+                    : throw new \RuntimeException('Server không hỗ trợ định dạng JPEG/JPG (thiếu libjpeg).'),
             };
 
             if (!$img) {
-                throw new \RuntimeException('Không thể đọc file ảnh. Vui lòng thử lại với file hợp lệ.');
+                throw new \RuntimeException('Không thể đọc file ảnh. Có thể file bị hỏng hoặc định dạng không hợp lệ.');
             }
 
             $width  = imagesx($img);
