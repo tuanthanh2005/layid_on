@@ -25,6 +25,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\GeminiTrickController;
 
+use App\Http\Controllers\SitemapController;
+
+// Sitemap XML cho Google Bot
+Route::get('sitemap.xml', [SitemapController::class, 'index']);
+
 Route::get('/', Home::class)->name('home');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
