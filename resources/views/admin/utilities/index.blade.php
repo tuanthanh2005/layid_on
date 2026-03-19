@@ -3,10 +3,25 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="h3 mb-0 text-gray-800">Quản lý Kho Tiện ích (Home Tools)</h2>
-    <a href="{{ route('admin.utilities.create') }}" class="btn btn-primary d-flex align-items-center gap-2">
-        <i data-lucide="plus" size="18"></i> Thêm tiện ích
-    </a>
+    <div class="d-flex gap-2">
+        <form action="{{ route('admin.utilities.cleanup') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger d-flex align-items-center gap-2 shadow-sm" onclick="return confirm('Bạn muốn dọn dẹp các tệp tạm cũ hơn 1 tiếng?')">
+                <i data-lucide="trash-2" size="18"></i> Dọn dẹp Temp
+            </button>
+        </form>
+        <a href="{{ route('admin.utilities.create') }}" class="btn btn-primary d-flex align-items-center gap-2 shadow-sm">
+            <i data-lucide="plus" size="18"></i> Thêm tiện ích
+        </a>
+    </div>
 </div>
+
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
 @if(session('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">

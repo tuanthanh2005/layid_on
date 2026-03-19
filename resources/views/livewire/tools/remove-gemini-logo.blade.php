@@ -187,33 +187,6 @@
                 </div>
             </div>
             </div>
-            
-            <!-- Admin Tool Section (Chỉ hiện cho Admin thực thụ) -->
-            @if(auth()->check() && (optional(auth()->user())->is_admin || optional(auth()->user())->role == 'admin' || auth()->id() == 1))
-                <div class="mt-5 pt-5 border-top">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="small text-muted">
-                            <i class="fa-solid fa-screwdriver-wrench me-1"></i>
-                            Quản trị hệ thống: Tự động dọn dẹp tệp rác.
-                        </div>
-                        <button wire:click="clearAllTempFiles" 
-                                wire:loading.attr="disabled"
-                                class="btn btn-sm btn-outline-danger rounded-pill px-3">
-                            <span wire:loading.remove wire:target="clearAllTempFiles">
-                                <i class="fa-solid fa-trash-can me-1"></i> Dọn dẹp tệp rác (All)
-                            </span>
-                            <span wire:loading wire:target="clearAllTempFiles">
-                                <span class="spinner-border spinner-border-sm" role="status"></span> Đang dọn...
-                            </span>
-                        </button>
-                    </div>
-                    @if (session()->has('successTool'))
-                        <div class="alert alert-success mt-3 rounded-4 py-2 small shadow-sm">
-                            <i class="fa-solid fa-check-circle me-1"></i> {{ session('successTool') }}
-                        </div>
-                    @endif
-                </div>
-            @endif
         </div>
     </div>
 </div>

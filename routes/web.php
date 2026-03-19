@@ -45,6 +45,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('gemini-tricks', GeminiTrickController::class)->names('admin.gemini-tricks');
 
     // Utility / Tool Management
+    Route::post('utilities/cleanup', [\App\Http\Controllers\Admin\UtilityController::class, 'cleanupTempFiles'])->name('admin.utilities.cleanup');
     Route::resource('utilities', \App\Http\Controllers\Admin\UtilityController::class)->names('admin.utilities');
 
     // Product Management (AI Store)

@@ -70,4 +70,32 @@ class UtilityController extends Controller
         $utility->delete();
         return redirect()->route('admin.utilities.index')->with('success', 'Đã xoá tiện ích!');
     }
+
+    public function cleanupTempFiles()
+    {
+        try {
+            $root = config('filesystems.disks.public_uploads.root', public_path());
+            $dir = $root . '/temp/watermark';
+            
+            if (is_dir($dir)) {
+                $files = glob($dir . '/*');
+                $now = time();
+                $count = 0;
+                
+                foreach ($files as $file) {
+                    if (is_file($file)) {
+                        // Xóa các file đã cũ hơn 1 tiếng (3600 giây)
+                        if ($now - filemtime($file) >= 3600) {
+                            @unlink($file);
+                            $count++;
+                        }
+                    }
+                }
+                return redirect()->route('admin.utilities.index')->with('success', "Đã dọn dẹp thành công {$count} tệp rác cũ hơn 1 tiếng.");
+            }
+            return redirect()->route('admin.utilities.index')->with('success', 'Thư mục tạm đang trống.');
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.utilities.index')->with('error', 'Lỗi dọn dẹp: ' . $e->getMessage());
+        }
+    }
 }
