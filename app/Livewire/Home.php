@@ -29,7 +29,7 @@ class Home extends Component
 
         $utilities = \App\Models\Utility::where('status', true)->orderBy('order_index')->get();
 
-        $aiProducts = \App\Models\Product::where('status', true)->orderBy('order_index')->take(6)->get();
+        $aiProducts = \App\Models\Product::where('status', true)->orderBy('order_index')->take(24)->get();
 
         $courses = \App\Models\Course::where('status', true)->orderBy('order')->take(3)->get();
         $movies = \App\Models\Movie::where('status', true)->latest()->take(3)->get();
