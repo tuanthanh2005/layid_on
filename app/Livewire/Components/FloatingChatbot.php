@@ -67,10 +67,22 @@ class FloatingChatbot extends Component
                 return;
             }
 
+            // Lấy danh sách sản phẩm AI hiện tại
+            $products = \App\Models\Product::where('status', true)
+                ->select('name', 'price', 'discount_price')
+                ->orderBy('order_index')
+                ->take(24)
+                ->get()
+                ->map(fn($p) => "{$p->name}: {$p->price}đ" . ($p->discount_price ? " (gốc {$p->discount_price}đ)" : ''))
+                ->implode(', ');
+
+            $systemPrompt = "Ban la tro ly AI than thien cho website cong nghe. Tra loi ngan gon, ro rang, uu tien tieng Viet.\n\n";
+            $systemPrompt .= "Danh sach san pham AI hien co: {$products}";
+
             $payloadMessages = array_merge([
                 [
                     'role' => 'system',
-                    'content' => 'Ban la tro ly AI than thien cho website cong nghe. Tra loi ngan gon, ro rang, uu tien tieng Viet.',
+                    'content' => $systemPrompt,
                 ],
             ], $this->buildHistory());
 
