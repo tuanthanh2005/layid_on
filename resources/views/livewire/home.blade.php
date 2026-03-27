@@ -1,105 +1,16 @@
     <div class="magazine-container">
         <!-- Cột Trái: Main Content -->
         <div class="magazine-main">
-            <!-- Featured Post -->
-            @if($featuredPost)
-            <a href="{{ route('post.show', $featuredPost->slug) }}" style="text-decoration:none; display: block;">
-                <div class="featured-post" style="background: {{ $featuredPost->thumbnail ? 'url(\''.asset($featuredPost->thumbnail).'\') center/cover' : ($featuredPost->color ?? 'linear-gradient(135deg, #1d4ed8, #1e3a8a)') }}; position: relative; border-radius: 8px; height: 320px; display: flex; align-items: flex-end; overflow: hidden; margin-bottom: 25px;">
-                    @if(!$featuredPost->thumbnail && $featuredPost->icon)
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; opacity: 0.1;">
-                         <i class="{{ $featuredPost->icon }}" style="font-size: 15rem; color: white;"></i>
-                    </div>
-                    @endif
-                    <div style="background: rgba(0,0,0,0.6); width: 100%; padding: 15px 20px; z-index: 1;">
-                        <h2 style="color: white; font-size: 1.4rem; margin: 0;">{{ $featuredPost->title }}</h2>
-                    </div>
-                </div>
-            </a>
-            @endif
-
-            <!-- Post Grid -->
-            @if($gridPosts->count() > 0)
-            <div class="post-grid">
-                @foreach($gridPosts as $grid)
-                <div class="post-card">
-                    <a href="{{ route('post.show', $grid->slug) }}" style="display: block;">
-                        <div class="post-thumb" style="background: {{ $grid->thumbnail ? 'url(\''.asset($grid->thumbnail).'\') center/cover' : ($grid->color ?? 'linear-gradient(135deg, #38bdf8, #0ea5e9)') }}; display:flex; align-items:center; justify-content:center; color:white;">
-                            @if(!$grid->thumbnail && $grid->icon)
-                            <i class="{{ $grid->icon }} fa-4x"></i>
-                            @endif
-                        </div>
-                    </a>
-                    <a href="{{ route('post.show', $grid->slug) }}" class="post-title" style="color: {{ $loop->first ? '#ef4444' : 'var(--text-primary)' }};">{{ $grid->title }}</a>
-                </div>
-                @endforeach
-            </div>
-            @endif
-
-            <!-- Latest Section -->
-            <div style="display: flex; gap: 12px; margin: 5px 0 25px 0; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                     <span style="color: white; background: #ef4444; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 1rem; flex-shrink: 0; box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);"><i class="fa-solid fa-fire"></i></span>
-                     <span style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px;">Mới nhất</span>
-                </div>
-            </div>
-
-            <!-- List Post -->
-            @forelse($latestPosts as $post)
-            <div class="post-list-item">
-                <a href="{{ route('post.show', $post->slug) }}" class="post-list-thumb">
-                    <div class="post-list-thumb-inner" style="background: {{ $post->thumbnail ? 'url(\''.asset($post->thumbnail).'\') center/cover' : ($post->color ?? 'linear-gradient(135deg, #475569, #334155)') }}; display:flex; align-items:center; justify-content:center; color:white;">
-                        @if(!$post->thumbnail && $post->icon)
-                        <i class="{{ $post->icon }} fa-4x"></i>
-                        @endif
-                    </div>
-                </a>
-                <div class="post-list-content">
-                    <a href="{{ route('post.show', $post->slug) }}" class="post-title" style="font-size: 1.25rem;">{{ $post->title }}</a>
-                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin: 10px 0;"><i class="fa-regular fa-clock"></i> {{ $post->created_at->diffForHumans() }} &nbsp;&nbsp; <i class="fa-regular fa-comment"></i> {{ $post->comments_count }}</div>
-                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0; line-height: 1.5;">{{ Str::limit($post->meta_description ?? strip_tags($post->content), 120) }}</p>
-                </div>
-            </div>
-            @empty
-            <div class="text-center text-muted my-5">
-                Chưa có bài viết nào mới.
-            </div>
-            @endforelse
-
-            <!-- Review Phim Section -->
-            @if($movies->count() > 0)
-            <div class="section-title d-flex justify-content-between align-items-center">
-                <span>Review Phim Mới</span>
-                <a href="{{ route('movies.index') }}" class="text-primary small text-decoration-none fw-bold" style="font-size: 0.8rem; text-transform: none;">Xem tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
-            </div>
-            <div class="post-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 35px; gap: 15px;">
-                @foreach($movies as $movie)
-                <div class="post-card" style="border: 0; background: transparent;">
-                    <a href="{{ route('movies.show', $movie->slug) }}" style="display: block; position: relative; border-radius: 12px; overflow: hidden; height: 180px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                        @if($movie->thumbnail)
-                            <img src="{{ asset($movie->thumbnail) }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
-                        @else
-                            <div style="width: 100%; height: 100%; background: {{ $movie->color ?? '#1e293b' }}; display: flex; align-items: center; justify-content: center; color: white;">
-                                <i class="{{ $movie->icon ?? 'fa-solid fa-film' }} fa-3x"></i>
-                            </div>
-                        @endif
-                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
-                             <div style="font-size: 0.7rem; opacity: 0.8; margin-bottom: 2px;">{{ $movie->genre }}</div>
-                             <div style="font-size: 0.9rem; font-weight: 700; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">{{ $movie->title }}</div>
-                        </div>
-                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: #f59e0b; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; backdrop-filter: blur(4px);">
-                            <i class="fa-solid fa-star"></i> {{ number_format($movie->rating, 1) }}
-                        </div>
-                    </a>
-                </div>
-                @endforeach
-            </div>
-            @endif
-
             <!-- AI Account Store -->
             @if($aiProducts->count() > 0)
-            <div class="section-title">Cửa Hàng Tài Khoản AI</div>
+            <div class="section-title d-flex justify-content-between align-items-center">
+                <span>Cửa Hàng Tài Khoản AI</span>
+                @if($aiProducts->count() > 10)
+                <a href="{{ route('store.ai') }}" class="text-primary small text-decoration-none fw-bold" style="font-size: 0.8rem; text-transform: none;">Xem tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
+                @endif
+            </div>
             <div class="post-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 35px; gap: 15px;">
-                @foreach($aiProducts as $product)
+                @foreach($aiProducts->take(10) as $product)
                 <div class="post-card" style="border: 1px solid #f1f5f9; padding: 10px; border-radius: 12px; transition: all 0.3s ease; position: relative; background: #fff;">
                     @if($product->badge_text)
                     <div style="position: absolute; top: 15px; left: 15px; z-index: 2; background: #ef4444; color: white; font-size: 0.75rem; padding: 2px 10px; border-radius: 20px; font-weight: 700; box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);">{{ $product->badge_text }}</div>

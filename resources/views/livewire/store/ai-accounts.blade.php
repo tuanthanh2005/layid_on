@@ -79,6 +79,38 @@
         .pricing-action {
             width: 100%;
         }
+        .description-wrapper {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .description-wrapper.collapsed {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .description-toggle {
+            display: inline-block;
+            color: var(--accent-primary);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .description-toggle:hover {
+            color: var(--accent-primary);
+            opacity: 0.8;
+        }
+        .description-container {
+            margin-bottom: 25px;
+        }
     </style>
 
     <div class="pricing-grid">
@@ -99,8 +131,14 @@
                 <div style="text-decoration: line-through; color: var(--text-secondary); font-size: 0.9rem;">Giá gốc: {{ number_format($product->discount_price) }}đ</div>
                 @endif
             </div>
-            <div class="pricing-features" style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px;">
-                {!! nl2br(e($product->description)) !!}
+            <div class="description-container">
+                <div class="description-wrapper collapsed" id="desc-{{ $product->id }}">
+                    {!! nl2br(e($product->description)) !!}
+                </div>
+                <button class="description-toggle" onclick="toggleDescription(event, {{ $product->id }})">
+                    <span class="toggle-text">Xem thêm</span>
+                    <i class="fa-solid fa-chevron-down" style="margin-left: 5px; font-size: 0.8rem;"></i>
+                </button>
             </div>
                         <a href="{{ route('store.checkout', $product->slug) }}" class="btn {{ $product->badge_text ? 'btn-primary' : 'btn-outline' }} pricing-action text-center text-decoration-none">
                 <i class="fa-solid fa-cart-shopping"></i> Mua Ngay
@@ -113,4 +151,24 @@
         </div>
         @endforelse
     </div>
+
+    <script>
+        function toggleDescription(event, productId) {
+            event.preventDefault();
+            const wrapper = document.getElementById('desc-' + productId);
+            const button = event.currentTarget;
+            const toggleText = button.querySelector('.toggle-text');
+            const icon = button.querySelector('i');
+
+            wrapper.classList.toggle('collapsed');
+            
+            if (wrapper.classList.contains('collapsed')) {
+                toggleText.textContent = 'Xem thêm';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                toggleText.textContent = 'Ẩn bớt';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
 </div>
