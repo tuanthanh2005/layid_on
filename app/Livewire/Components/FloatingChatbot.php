@@ -18,7 +18,7 @@ class FloatingChatbot extends Component
     public function mount(): void
     {
         $this->messages = [];
-        $this->appendMessage('assistant', 'Chao ban! Minh la AI tro ly. Ban can ho tro gi hom nay?');
+        $this->appendMessage('assistant', 'Chào Bạn 👋! Mình là trợ lý ảo của website công nghệ này. Bạn có thể hỏi mình về các sản phẩm AI hiện có, hoặc bất cứ câu hỏi nào liên quan đến công nghệ nhé!');
     }
 
     public function toggle(): void
@@ -34,7 +34,7 @@ class FloatingChatbot extends Component
     public function clearChat(): void
     {
         $this->messages = [];
-        $this->appendMessage('assistant', 'Da xoa doan chat. Ban muon hoi gi tiep ne?');
+        $this->appendMessage('assistant', 'Đã xóa đoạn chat. ạn muốn hỏi gì tiếp không?');
 
         $this->prompt = '';
     }
