@@ -4,7 +4,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1 class="page-title mb-1">Quản lý Khóa học</h1>
-        <p class="text-muted small mb-0">Học IT Miễn Phí — tổng hợp các khóa học video và tài liệu kỹ thuật.</p>
+        <p class="text-muted small mb-0">Học Ngôn Ngữ Miễn Phí — tổng hợp các khóa học video và tài liệu kỹ thuật.</p>
     </div>
     <a href="{{ route('admin.courses.create') }}" class="btn btn-primary d-flex align-items-center gap-2 px-4 shadow-sm">
         <i data-lucide="plus-circle" size="20"></i> Thêm khóa học

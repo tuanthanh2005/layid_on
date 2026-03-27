@@ -11,7 +11,7 @@
                 Quản lý Bài học
             @endif
         </h1>
-        <p class="text-muted small mb-0">Danh sách các bài học trong hệ thống Học IT Miễn Phí.</p>
+        <p class="text-muted small mb-0">Danh sách các bài học trong hệ thống Học Ngôn Ngữ Miễn Phí.</p>
     </div>
     <a href="{{ route('admin.lessons.create') }}{{ request('course_id') ? '?course_id='.request('course_id') : '' }}"
         class="btn btn-primary d-flex align-items-center gap-2 px-4 shadow-sm">

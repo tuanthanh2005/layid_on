@@ -114,8 +114,8 @@ Route::get('/tools/remove-bg', \App\Livewire\Tools\RemoveBg::class)->name('tools
 
 
 // Course Routes
-Route::get('/hoc-it', \App\Livewire\Courses\CourseList::class)->name('course.index');
-Route::get('/hoc-it/{slug}/{lesson_slug?}', \App\Livewire\Courses\CourseDetail::class)->name('course.detail');
+Route::get('/hoc-ngon-ngu', \App\Livewire\Courses\CourseList::class)->name('course.index');
+Route::get('/hoc-ngon-ngu/{slug}/{lesson_slug?}', \App\Livewire\Courses\CourseDetail::class)->name('course.detail');
 
 Route::get('/movies', Movies::class)->name('movies.index');
 Route::get('/movies/{slug}', MovieDetail::class)->name('movies.show');

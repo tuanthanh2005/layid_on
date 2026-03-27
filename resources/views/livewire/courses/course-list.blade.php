@@ -1,7 +1,7 @@
 <div class="course-list-page pb-5" style="padding-top: 30px;">
     <div class="container">
         <div class="text-center mb-5">
-            <h1 class="fw-bold mb-2" style="font-size: 2.5rem; color: var(--text-primary);">Học IT Miễn Phí</h1>
+            <h1 class="fw-bold mb-2" style="font-size: 2.5rem; color: var(--text-primary);">Học Ngôn Ngữ Miễn Phí</h1>
             <p class="text-muted">Tổng hợp kiến thức lập trình, thủ thuật công nghệ từ cơ bản đến nâng cao hoàn toàn miễn phí.</p>
         </div>
 

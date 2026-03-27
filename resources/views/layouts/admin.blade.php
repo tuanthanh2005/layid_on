@@ -338,7 +338,7 @@
                 <li class="menu-item {{ request()->routeIs('admin.social-orders.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.social-orders.index') }}"><i data-lucide="shopping-bag" size="18"></i> Quản lý Đơn Buff</a>
                 </li>
-                <li class="menu-label">Học IT Miễn Phí</li>
+                <li class="menu-label">Học Ngôn Ngữ Miễn Phí</li>
                 <li class="menu-item {{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.courses.index') }}"><i data-lucide="graduation-cap" size="18"></i> Cấu hình Khóa học</a>
                 </li>

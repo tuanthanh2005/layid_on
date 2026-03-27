@@ -21,7 +21,7 @@ class MenuSeeder extends Seeder
                 ['name' => 'Buff TikTok', 'url' => '/social-service/buff-tiktok', 'icon' => 'fa-brands fa-tiktok', 'order' => 1],
                 ['name' => 'Buff Facebook', 'url' => '/social-service/buff-facebook', 'icon' => 'fa-brands fa-facebook', 'order' => 2],
             ]],
-            ['name' => 'Học IT Miễn Phí', 'url' => '/courses', 'icon' => 'fa-solid fa-graduation-cap', 'order' => 6],
+            ['name' => 'Học Ngôn Ngữ Miễn Phí', 'url' => '/courses', 'icon' => 'fa-solid fa-graduation-cap', 'order' => 6],
             ['name' => 'Blog & Mẹo AI', 'url' => '/blog', 'icon' => 'fa-solid fa-book', 'order' => 7],
             ['name' => 'Review Phim', 'url' => '/movies', 'icon' => 'fa-solid fa-film', 'order' => 8],
         ];

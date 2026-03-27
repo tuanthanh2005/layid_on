@@ -234,7 +234,7 @@
                 <ul class="list-unstyled">
                     <li class="mb-2"><a wire:navigate href="/tools/2fa" class="text-decoration-none text-muted hover-primary transition-all">Lấy mã 2FA nhanh</a></li>
                     <li class="mb-2"><a wire:navigate href="/store/ai-accounts" class="text-decoration-none text-muted hover-primary transition-all">Mua tài khoản AI giá rẻ</a></li>
-                    <li class="mb-2"><a wire:navigate href="/courses" class="text-decoration-none text-muted hover-primary transition-all">Học IT Miễn Phí</a></li>
+                    <li class="mb-2"><a wire:navigate href="/courses" class="text-decoration-none text-muted hover-primary transition-all">Học Ngôn Ngữ Miễn Phí</a></li>
                     <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-primary transition-all">Hỗ trợ khách hàng</a></li>
                 </ul>
             </div>

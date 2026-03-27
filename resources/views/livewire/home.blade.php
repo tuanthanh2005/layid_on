@@ -147,10 +147,10 @@
                     </div>
                 @endif
             </div>
-            <!-- Học IT Miễn Phí - Sidebar Widget -->
+            <!-- Học Ngôn Ngữ Miễn Phí - Sidebar Widget -->
             <div class="sidebar-widget mt-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h3 class="widget-title m-0">Học IT Miễn Phí</h3>
+                    <h3 class="widget-title m-0">Học Ngôn Ngữ Miễn Phí</h3>
                     <a href="{{ route('course.index') }}" class="text-primary small text-decoration-none fw-bold">Tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
                 </div>
                 

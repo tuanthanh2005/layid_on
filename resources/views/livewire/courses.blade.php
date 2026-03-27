@@ -5,7 +5,7 @@
             <i class="fa-solid fa-graduation-cap" style="font-size: 15rem;"></i>
         </div>
         <div style="position: relative; z-index: 1;">
-            <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 10px;">Học IT Miễn Phí <span style="color: #38bdf8;">Cùng TechTools</span></h1>
+            <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 10px;">Học Ngôn Ngữ Miễn Phí <span style="color: #38bdf8;">Cùng TechTools</span></h1>
             <p style="font-size: 1.1rem; color: #94a3b8; max-width: 600px; line-height: 1.6;">Khám phá lộ trình học lập trình từ cơ bản đến nâng cao hoàn toàn miễn phí qua video bài giảng chất lượng cao.</p>
         </div>
     </div>
