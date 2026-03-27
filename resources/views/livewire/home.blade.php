@@ -5,12 +5,12 @@
             @if($aiProducts->count() > 0)
             <div class="section-title d-flex justify-content-between align-items-center">
                 <span>Cửa Hàng Tài Khoản AI</span>
-                @if($aiProducts->count() > 10)
+                @if($aiProducts->count() > 24)
                 <a href="{{ route('store.ai') }}" class="text-primary small text-decoration-none fw-bold" style="font-size: 0.8rem; text-transform: none;">Xem tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
                 @endif
             </div>
             <div class="post-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 35px; gap: 15px;">
-                @foreach($aiProducts->take(10) as $product)
+                @foreach($aiProducts->take(24) as $product)
                 <div class="post-card" style="border: 1px solid #f1f5f9; padding: 10px; border-radius: 12px; transition: all 0.3s ease; position: relative; background: #fff;">
                     @if($product->badge_text)
                     <div style="position: absolute; top: 15px; left: 15px; z-index: 2; background: #ef4444; color: white; font-size: 0.75rem; padding: 2px 10px; border-radius: 20px; font-weight: 700; box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);">{{ $product->badge_text }}</div>
