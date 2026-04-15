@@ -224,10 +224,9 @@
 .pd-hero-img-wrap {
     position: relative;
     width: 100%;
-}
-.pd-hero-img-wrap::before {
-    content: ''; display: block;
-    padding-top: calc(334 / 500 * 100%); /* 500x334 ratio */
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 0; /* Let parent handle or keep clean */
 }
 .pd-hero-img {
     position: absolute; inset: 0;
