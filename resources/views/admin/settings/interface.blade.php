@@ -112,6 +112,36 @@
             </div>
         </div>
     </div>
+    
+    <!-- Telegram Configuration -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-4 d-flex align-items-center">
+                        <i data-lucide="send" class="me-2 text-primary" size="20"></i> Thông báo Telegram Admin (Đơn hàng mới)
+                    </h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Telegram Bot Token</label>
+                            <input type="password" name="telegram_bot_token" class="form-control" value="{{ $settings['telegram_bot_token'] ?? '' }}" placeholder="VD: 123456789:ABCdefGHIjkl...">
+                            <small class="text-muted">Lấy từ <a href="https://t.me/BotFather" target="_blank">@BotFather</a></small>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Admin Chat ID</label>
+                            <input type="text" name="telegram_admin_chat_id" class="form-control" value="{{ $settings['telegram_admin_chat_id'] ?? '' }}" placeholder="VD: 123456789">
+                            <small class="text-muted">Dùng <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a> để lấy ID của bạn</small>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning border-0 rounded-4 small mb-0">
+                        <i data-lucide="bell" size="16" class="me-2"></i> Hệ thống sẽ tự động nhắn tin cho bạn qua Telegram ngay khi có người dùng thanh toán/tạo đơn hàng mới.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Nút thao tác -->
     <div class="text-end d-flex justify-content-end gap-3 mt-4">

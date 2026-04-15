@@ -80,8 +80,7 @@
                     <i class="fa-solid fa-clipboard-list"></i>
                     @auth
                         @php 
-                            $orderCount = Auth::user()->orders()->where('status', 'pending')->count() + 
-                                         Auth::user()->socialOrders()->where('status', 'pending')->count(); 
+                            $orderCount = Auth::user()->orders()->where('status', 'pending')->count(); 
                         @endphp
                         @if($orderCount > 0)
                             <span class="cart-badge" style="position: absolute; top: -10px; right: -12px; background: #ef4444; color: white; font-size: 0.7rem; border-radius: 50%; padding: 2px 6px; font-weight: bold;">{{ $orderCount }}</span>
@@ -160,8 +159,7 @@
                         <i class="fa-solid fa-clipboard-list text-secondary"></i> Lịch sử đơn hàng
                         @auth
                             @php 
-                                $orderCount = Auth::user()->orders()->where('status', 'pending')->count() + 
-                                             Auth::user()->socialOrders()->where('status', 'pending')->count(); 
+                                $orderCount = Auth::user()->orders()->where('status', 'pending')->count();
                             @endphp
                             @if($orderCount > 0)
                                 <span class="badge bg-danger rounded-pill">{{ $orderCount }}</span>
@@ -223,29 +221,32 @@
             <div class="footer-column">
                 <h3 class="fw-bold fs-5 mb-4 text-dark">Khám phá AI</h3>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a wire:navigate href="/gemini-business-free" class="text-decoration-none text-muted hover-primary transition-all">Thủ thuật Gemini</a></li>
-                    <li class="mb-2"><a wire:navigate href="/blog" class="text-decoration-none text-muted hover-primary transition-all">Blog Công nghệ</a></li>
-                    <li class="mb-2"><a wire:navigate href="/tools/remove-gemini-logo" class="text-decoration-none text-muted hover-primary transition-all">Xóa AI Watermark</a></li>
-                    <li class="mb-2"><a wire:navigate href="/blog" class="text-decoration-none text-muted hover-primary transition-all">Mẹo sử dụng ChatGPT</a></li>
+                    <li class="mb-2"><a wire:navigate href="/store/ai-accounts" class="text-decoration-none text-muted hover-primary transition-all">Mua tài khoản AI giá rẻ</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-primary transition-all">Hỗ trợ khách hàng</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3 class="fw-bold fs-5 mb-4 text-dark">Công cụ & Dịch vụ</h3>
+                <h3 class="fw-bold fs-5 mb-4 text-dark">Liên kết nhanh</h3>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a wire:navigate href="/tools/2fa" class="text-decoration-none text-muted hover-primary transition-all">Lấy mã 2FA nhanh</a></li>
-                    <li class="mb-2"><a wire:navigate href="/store/ai-accounts" class="text-decoration-none text-muted hover-primary transition-all">Mua tài khoản AI giá rẻ</a></li>
-                    <li class="mb-2"><a wire:navigate href="/courses" class="text-decoration-none text-muted hover-primary transition-all">Học Ngôn Ngữ Miễn Phí</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-primary transition-all">Hỗ trợ khách hàng</a></li>
+                    <li class="mb-2"><a wire:navigate href="/" class="text-decoration-none text-muted hover-primary transition-all">Trang Chủ</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3 class="fw-bold fs-5 mb-4 text-dark">Theo dõi cộng đồng</h3>
                 <p class="small text-muted mb-3">Tham gia cộng đồng cùng hàng nghìn người dùng thông thái.</p>
-                <div class="social-links d-flex gap-3">
-                    <a href="#" class="social-icon-btn facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon-btn youtube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" class="social-icon-btn tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" class="social-icon-btn telegram"><i class="fa-brands fa-telegram"></i></a>
+                <div class="social-links d-flex flex-column gap-3">
+                    <a href="https://www.facebook.com/profile.php?id=61570761620125" class="social-link-item" target="_blank" rel="noopener noreferrer">
+                        <span class="social-icon-btn facebook m-0"><i class="fa-brands fa-facebook-f"></i></span>
+                        <span class="text-muted small fw-medium transition-all">Fanpage Facebook</span>
+                    </a>
+                    <a href="https://zalo.me/0772698113" class="social-link-item" target="_blank" rel="noopener noreferrer">
+                        <span class="social-icon-btn zalo m-0"><i class="fa-solid fa-comment-dots"></i></span>
+                        <span class="text-muted small fw-medium transition-all">Zalo Hỗ Trợ</span>
+                    </a>
+                    <a href="https://t.me/specademy" class="social-link-item" target="_blank" rel="noopener noreferrer">
+                        <span class="social-icon-btn telegram m-0"><i class="fa-brands fa-telegram"></i></span>
+                        <span class="text-muted small fw-medium transition-all">Telegram: @specademy</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -253,9 +254,7 @@
             <p class="mb-0">&copy; 2026 <strong>Layid.online</strong>. Bảo lưu mọi quyền. <br class="d-md-none"> Tối ưu hóa hiệu suất bởi Layid Dev Team.</p>
         </div>
     </footer>
-    <!-- Chatbots -->
-    @livewire('components.floating-chatbot')
-    <livewire:components.support-chat-widget />
+
     <!-- Toast Container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
         @if(session('success'))

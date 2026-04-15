@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\SocialOrder::class);
     }
+
+    public function proxyOrders()
+    {
+        return $this->hasMany(\App\Models\ProxyOrder::class);
+    }
 }

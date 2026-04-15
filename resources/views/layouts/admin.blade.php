@@ -313,76 +313,24 @@
                 <li class="menu-item {{ request()->routeIs('admin.menus.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.menus.index') }}"><i data-lucide="menu" size="18"></i> Quản lý Menu</a>
                 </li>
-                <li class="menu-item {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.posts.index') }}"><i data-lucide="book-open" size="18"></i> Blog & Mẹo AI</a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('admin.gemini-tricks.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.gemini-tricks.index') }}"><i data-lucide="gem" size="18"></i> Thủ thuật Gemini</a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('admin.utilities.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.utilities.index') }}"><i data-lucide="blocks" size="18"></i> Quản lý tiện ích</a>
-                </li>
+
                 <li class="menu-item {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.products.index') }}"><i data-lucide="shopping-cart" size="18"></i> Quản lý sản phẩm</a>
                 </li>
+
+                <li class="menu-item {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.posts.index') }}"><i data-lucide="file-text" size="18"></i> Quản lý Blog</a>
+                </li>
+
                 <li class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.orders.index') }}"><i data-lucide="clipboard-list" size="18"></i> Quản lý đơn hàng</a>
                 </li>
-                <li class="menu-label">Dịch vụ Buff</li>
-                <li class="menu-item {{ request()->routeIs('admin.social-services.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.social-services.index') }}"><i data-lucide="share-2" size="18"></i> Cấu hình Dịch vụ</a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('admin.social-servers.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.social-servers.index') }}"><i data-lucide="server" size="18"></i> Cấu hình Server & Giá</a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('admin.social-orders.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.social-orders.index') }}"><i data-lucide="shopping-bag" size="18"></i> Quản lý Đơn Buff</a>
-                </li>
-                <li class="menu-label">Học Ngôn Ngữ Miễn Phí</li>
-                <li class="menu-item {{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.courses.index') }}"><i data-lucide="graduation-cap" size="18"></i> Cấu hình Khóa học</a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('admin.lessons.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.lessons.index') }}"><i data-lucide="play-circle" size="18"></i> Quản lý Bài học</a>
-                </li>
-                <li class="menu-label">Review Phim</li>
-                <li class="menu-item {{ request()->routeIs('admin.movies.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.movies.index') }}"><i data-lucide="clapperboard" size="18"></i> Quản lý Review Phim</a>
-                </li>
+
                 <li class="menu-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.settings.interface') }}"><i data-lucide="palette" size="18"></i> Cấu hình giao diện</a>
                 </li>
                 @endif
-                @if(Auth::user()->role === 'admin')
-                <li class="menu-item">
-                    <a href="#"><i data-lucide="mail" size="18"></i> Email</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#"><i data-lucide="edit" size="18"></i> Compose</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#"><i data-lucide="calendar" size="18"></i> Calendar</a>
-                </li>
-                <li class="menu-item position-relative {{ request()->routeIs('admin.support-chat') ? 'active' : '' }}">
-                    <a href="{{ route('admin.support-chat') }}" class="d-flex align-items-center w-100 pe-5">
-                        <i data-lucide="message-square" size="18"></i> Hỗ trợ Trực tuyến
-                        <livewire:admin.chat-counter />
-                    </a>
-                </li>
-                @endif
-                
-                @if(Auth::user()->role === 'admin')
-                <li class="menu-label">UI Elements</li>
-                <li class="menu-item">
-                    <a href="#"><i data-lucide="pie-chart" size="18"></i> Charts</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#"><i data-lucide="check-square" size="18"></i> Forms</a>
-                </li>
-                <li class="menu-item">
-                    <a href="#"><i data-lucide="box" size="18"></i> UI Elements</a>
-                </li>
-                @endif
+
                 <li class="menu-label">Tài khoản</li>
                 <li class="menu-item {{ request()->is('profile*') ? 'active' : '' }}">
                     <a href="{{ route('profile.index') }}"><i data-lucide="user" size="18"></i> Thông tin cá nhân</a>

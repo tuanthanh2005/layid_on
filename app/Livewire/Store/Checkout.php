@@ -43,8 +43,14 @@ class Checkout extends Component
         $order->total_amount = $this->product->price;
         $order->status = 'pending';
         $order->payment_method = 'VietQR';
-        $order->notes = "Sản phẩm: {$this->product->name} | Email nhận: {$this->email} | WhatsApp: {$this->whatsapp}";
         $order->save();
+
+        // Notify Admin via Telegram
+        try {
+            \App\Services\TelegramService::sendNewOrder($order);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Telegram Notify Error: ' . $e->getMessage());
+        }
 
         $this->step = 3;
     }

@@ -32,9 +32,14 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->slug = Str::slug($request->name) . '-' . uniqid();
         $product->description = $request->description;
+        $product->details = $request->details;
+        $product->video_url = $request->video_url;
+        $product->category_label = $request->category_label;
+        $product->features = array_filter(explode("\n", $request->input('features', '')));
         $product->price = $request->price;
         $product->discount_price = $request->discount_price;
         $product->badge_text = $request->badge_text;
+        $product->url = $request->url;
         $product->status = $request->has('status');
         $product->order_index = $request->order_index ?? 0;
 
@@ -71,9 +76,14 @@ class ProductController extends Controller
         }
 
         $product->description = $request->description;
+        $product->details = $request->details;
+        $product->video_url = $request->video_url;
+        $product->category_label = $request->category_label;
+        $product->features = array_filter(explode("\n", $request->input('features', '')));
         $product->price = $request->price;
         $product->discount_price = $request->discount_price;
         $product->badge_text = $request->badge_text;
+        $product->url = $request->url;
         $product->status = $request->has('status');
         $product->order_index = $request->order_index ?? 0;
 

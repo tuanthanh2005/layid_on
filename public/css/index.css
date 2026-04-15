@@ -453,6 +453,41 @@ body.light-theme {
   box-shadow: 0 10px 15px -3px rgba(0, 136, 204, 0.3);
 }
 
+.social-link-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none !important;
+    transition: var(--transition);
+}
+
+.social-link-item:hover .social-icon-btn {
+    transform: translateY(-3px);
+}
+
+.social-link-item:hover .social-icon-btn.facebook {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+}
+
+.social-link-item:hover .social-icon-btn.telegram {
+    background: #0088cc;
+    color: white;
+    border-color: #0088cc;
+}
+
+.social-link-item:hover .social-icon-btn.zalo {
+    background: #0068ff;
+    color: white;
+    border-color: #0068ff;
+}
+
+.social-link-item:hover span:last-child {
+    color: var(--accent-primary) !important;
+    transform: translateX(5px);
+}
+
 .hover-primary {
   display: inline-block;
   transition: all 0.3s ease;

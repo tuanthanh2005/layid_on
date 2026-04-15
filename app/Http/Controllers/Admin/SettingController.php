@@ -70,6 +70,14 @@ class SettingController extends Controller
             Setting::set('google_verification', $code, 'text', 'interface');
         }
 
+        // --- TELEGRAM NOTIFICATIONS ---
+        if ($request->has('telegram_bot_token')) {
+            Setting::set('telegram_bot_token', trim($request->telegram_bot_token), 'text', 'interface');
+        }
+        if ($request->has('telegram_admin_chat_id')) {
+            Setting::set('telegram_admin_chat_id', trim($request->telegram_admin_chat_id), 'text', 'interface');
+        }
+
         return redirect()->back()->with('success', 'Đã cập nhật giao diện thành công!');
     }
 }
