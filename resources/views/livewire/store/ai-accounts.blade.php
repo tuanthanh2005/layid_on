@@ -25,7 +25,7 @@
             @endif
 
             {{-- Ảnh 500x334 ratio --}}
-            <a href="{{ route('store.checkout', $product->slug) }}" class="store-img-wrap">
+            <a href="{{ route('store.product', $product->slug) }}" class="store-img-wrap">
                 @if($product->image)
                 <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="store-img">
                 @else
@@ -34,7 +34,7 @@
                 </div>
                 @endif
                 <div class="store-img-overlay">
-                    <span><i class="fa-solid fa-cart-shopping"></i> Xem & Mua</span>
+                    <span><i class="fa-solid fa-eye"></i> Xem chi tiết</span>
                 </div>
             </a>
 
@@ -42,7 +42,9 @@
             <div class="store-card-body">
                 {{-- Tên + giá --}}
                 <div class="store-card-top">
-                    <h2 class="store-card-name">{{ $product->name }}</h2>
+                    <h2 class="store-card-name">
+                        <a href="{{ route('store.product', $product->slug) }}" style="color: inherit; text-decoration: none;">{{ $product->name }}</a>
+                    </h2>
                     <div class="store-card-pricing">
                         <span class="store-card-price">{{ number_format($product->price) }}đ</span>
                         @if($product->discount_price)
@@ -73,7 +75,7 @@
 
                 {{-- CTA --}}
                 <a href="{{ route('store.checkout', $product->slug) }}" class="store-buy-btn">
-                    <i class="fa-solid fa-cart-shopping"></i> Mua ngay — {{ number_format($product->price) }}đ
+                    <i class="fa-solid fa-cart-shopping"></i> Mua ngay
                 </a>
                 @if($product->url || $product->details || ($product->features && count($product->features) > 0))
                 <a href="{{ route('store.product', $product->slug) }}" class="store-info-btn">
@@ -90,6 +92,10 @@
         </div>
         @endforelse
     </section>
+
+    <div class="mt-5 d-flex justify-content-center">
+        {{ $products->links() }}
+    </div>
 
 </div>
 
@@ -175,11 +181,11 @@ function toggleDesc(event, id) {
 }
 .store-trust-pills span i { color: #34d399; }
 
-/* --- Product Grid: 2 columns --- */
+/* --- Product Grid: 4 columns --- */
 .store-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
 /* --- Card --- */
@@ -426,16 +432,35 @@ function toggleDesc(event, id) {
 .store-empty p { color: #9ca3af; font-size: 0.9rem; }
 
 /* --- Responsive --- */
+@media (max-width: 1100px) {
+    .store-grid { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 860px) {
-    .store-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .store-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .store-features { grid-template-columns: 1fr; }
     .store-hero { padding: 36px 24px; }
     .store-hero-title { font-size: 1.7rem; }
 }
 @media (max-width: 600px) {
-    .store-grid { grid-template-columns: 1fr; }
-    .store-features { grid-template-columns: 1fr; }
-    .store-card-name { font-size: 1rem; }
-    .store-trust-pills { gap: 6px; }
-    .store-hero { padding: 28px 18px; }
+    .store-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .store-features, .store-info-btn, .store-hero-sub, .store-desc-toggle, .store-card-desc { display: none !important; }
+    
+    .store-hero { padding: 24px 16px; border-radius: 12px; margin: 10px 0 20px; text-align: center; }
+    .store-hero-title { font-size: 1.35rem; }
+    .store-trust-pills { justify-content: center; }
+    
+    .store-card { border-radius: 12px; }
+    .store-card-body { padding: 12px; }
+    .store-card-name { font-size: 0.88rem; height: 2.6em; margin-bottom: 6px; }
+    .store-card-price { font-size: 1.1rem; }
+    .store-card-original { font-size: 0.75rem; }
+    
+    .store-buy-btn { 
+        padding: 10px 8px; 
+        font-size: 0.8rem !important; 
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    .store-buy-btn i { font-size: 0.75rem; }
 }
 </style>

@@ -111,23 +111,23 @@
                 <button class="mobile-search-toggle-btn" onclick="document.querySelector('.search-bar').classList.toggle('show-mobile-search')">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button class="mobile-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('show-mobile-nav')">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
+        </div>
     </header>
 
-    <!-- Navigation -->
-    <nav class="app-nav">
+    <!-- Navigation (Hidden on Mobile, handled by Bottom Nav + Burger) -->
+    <nav class="app-nav d-none d-md-block">
         <div class="container nav-container">
             <ul class="nav-links" id="nav-links">
                 @foreach($public_menus as $menu)
                     @if($menu->submenus->count() > 0)
                         <li class="has-dropdown">
                             <a href="{{ $menu->url }}" 
-                               class="{{ request()->is(ltrim($menu->url, '/').'*') ? 'active' : '' }}"
-                               onclick="if(window.innerWidth <= 768) { event.preventDefault(); event.stopPropagation(); this.parentElement.classList.toggle('open'); return false; }">
+                               class="{{ request()->is(ltrim($menu->url, '/').'*') ? 'active' : '' }}">
                                 @if($menu->icon) <i class="{{ $menu->icon }}"></i> @endif
                                 {{ $menu->name }} 
                                 <i class="fa-solid fa-chevron-down" style="font-size: 0.8em; margin-left: auto;"></i>
@@ -152,46 +152,91 @@
                         </li>
                     @endif
                 @endforeach
-                
-                <!-- MOBILE AUTH ACTIONS -->
-                <li class="d-md-none border-top pt-3 mt-2">
-                    <a wire:navigate href="{{ route('orders.index') }}" class="d-flex align-items-center gap-2">
-                        <i class="fa-solid fa-clipboard-list text-secondary"></i> Lịch sử đơn hàng
-                        @auth
-                            @php 
-                                $orderCount = Auth::user()->orders()->where('status', 'pending')->count();
-                            @endphp
-                            @if($orderCount > 0)
-                                <span class="badge bg-danger rounded-pill">{{ $orderCount }}</span>
-                            @endif
-                        @endauth
-                    </a>
-                </li>
-                @auth
-                    <li class="d-md-none">
-                        @if(Auth::user()->role === 'admin')
-                            <a wire:navigate href="{{ route('admin.dashboard') }}" style="color: var(--accent-primary);"><i class="fa-solid fa-user-shield"></i> Quản trị viên</a>
-                        @else
-                            <a wire:navigate href="{{ route('profile.index') }}" style="color: var(--accent-primary);"><i class="fa-solid fa-user"></i> {{ Auth::user()->name }}</a>
-                        @endif
-                    </li>
-                    <li class="d-md-none">
-                        <form method="POST" action="{{ route('logout') }}" class="w-100 m-0">
-                            @csrf
-                            <button type="submit" style="background:none; border:none; padding:10px 0; color:#ef4444; font-size:0.95rem; font-weight:500; display:flex; align-items:center; gap:8px;">
-                                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
-                            </button>
-                        </form>
-                    </li>
-                @else
-                    <li class="d-md-none mt-3 pb-2 d-flex gap-3">
-                        <a href="/login" class="btn btn-outline flex-grow-1 text-center" style="padding: 8px 15px; justify-content:center;">Đăng nhập</a>
-                        <a href="/register" class="btn btn-primary flex-grow-1 text-center" style="padding: 8px 15px; border:none; justify-content:center;">Đăng ký</a>
-                    </li>
-                @endauth
             </ul>
         </div>
     </nav>
+
+    <!-- MOBILE OVERLAY MENU -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <div class="mobile-menu-container">
+            <div class="mobile-menu-header">
+                <div class="logo">
+                     <i class="fa-solid fa-microchip logo-icon"></i>
+                     <span class="logo-text">Lay<span class="highlight">id</span></span>
+                </div>
+                <button class="menu-close-btn" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-body">
+                <ul class="mobile-nav-list">
+                    @foreach($public_menus as $menu)
+                        <li>
+                            <a wire:navigate href="{{ $menu->url }}" class="{{ request()->is(ltrim($menu->url, '/').'*') ? 'active' : '' }}">
+                                @if($menu->icon) <i class="{{ $menu->icon }} menu-icon"></i> @endif
+                                {{ $menu->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                    <li class="menu-divider"></li>
+                    @auth
+                        <li>
+                            <a wire:navigate href="{{ route('profile.index') }}">
+                                <i class="fa-solid fa-user-circle menu-icon"></i> Hồ sơ của tôi
+                            </a>
+                        </li>
+                        <li>
+                            <a wire:navigate href="{{ route('orders.index') }}">
+                                <i class="fa-solid fa-file-invoice menu-icon"></i> Lịch sử đơn hàng
+                            </a>
+                        </li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
+                                @csrf
+                                <button type="submit" class="logout-link">
+                                    <i class="fa-solid fa-sign-out-alt menu-icon"></i> Đăng xuất
+                                </button>
+                            </form>
+                        </li>
+                    @else
+                        <li class="mt-4">
+                            <div class="d-grid gap-2">
+                                <a href="/login" class="btn btn-primary shadow-sm py-2">Đăng nhập</a>
+                                <a href="/register" class="btn btn-outline py-2">Đăng ký thành viên</a>
+                            </div>
+                        </li>
+                    @endauth
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING BOTTOM NAVIGATION (MOBILE ONLY) -->
+    <div class="floating-bottom-nav d-md-none">
+        <div class="bottom-nav-container">
+            <a wire:navigate href="/" class="bottom-nav-item {{ request()->is('/') ? 'active' : '' }}">
+                <i class="fa-solid fa-house"></i>
+                <span>Trang chủ</span>
+            </a>
+            <a wire:navigate href="/store/ai-accounts" class="bottom-nav-item {{ request()->is('store/ai-accounts*') ? 'active' : '' }}">
+                <i class="fa-solid fa-shop"></i>
+                <span>Cửa hàng</span>
+            </a>
+            <div class="bottom-nav-item center-item search-trigger" onclick="toggleMobileSearch()">
+                <div class="center-circle shadow">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <a wire:navigate href="/tools/2fa" class="bottom-nav-item {{ request()->is('tools*') ? 'active' : '' }}">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <span>Công cụ</span>
+            </a>
+            <a wire:navigate href="{{ route('orders.index') }}" class="bottom-nav-item {{ request()->is('orders*') ? 'active' : '' }}">
+                <i class="fa-solid fa-user"></i>
+                <span>Đơn hàng</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Main Content Area -->
     <main class="app-main container">
@@ -288,6 +333,23 @@
             const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
             toast.show();
         });
+
+        // Mobile Menu Toggles
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobile-overlay');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function toggleMobileSearch() {
+            const searchBar = document.querySelector('.search-bar');
+            if (searchBar) {
+                searchBar.classList.toggle('show-mobile-search');
+                if (searchBar.classList.contains('show-mobile-search')) {
+                    searchBar.querySelector('input').focus();
+                }
+            }
+        }
     </script>
     @livewireScripts
 </body>

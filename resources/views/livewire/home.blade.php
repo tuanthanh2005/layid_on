@@ -87,13 +87,13 @@
         </div>
 
         <div class="product-grid">
-            @foreach($aiProducts->take(6) as $product)
+            @foreach($aiProducts as $product)
             <div class="product-card">
                 @if($product->badge_text)
                 <div class="product-badge">{{ $product->badge_text }}</div>
                 @endif
 
-                <a href="{{ route('store.checkout', $product->slug) }}" class="product-image-wrap">
+                <a href="{{ route('store.product', $product->slug) }}" class="product-image-wrap">
                     @if($product->image)
                     <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-image">
                     @else
@@ -107,7 +107,9 @@
                 </a>
 
                 <div class="product-info">
-                    <h3 class="product-name">{{ $product->name }}</h3>
+                    <h3 class="product-name">
+                        <a href="{{ route('store.product', $product->slug) }}" style="color: inherit; text-decoration: none;">{{ $product->name }}</a>
+                    </h3>
 
                     @if($product->discount_price)
                     <div class="product-discount-pct">
@@ -133,6 +135,10 @@
                 </div>
             </div>
             @endforeach
+        </div>
+
+        <div class="mt-5 d-flex justify-content-center">
+            {{ $aiProducts->links() }}
         </div>
     </section>
     @endif
@@ -370,7 +376,7 @@
 /* --- PRODUCT GRID --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
 
@@ -639,11 +645,26 @@
 }
 
 @media (max-width: 600px) {
-    .trust-row { grid-template-columns: 1fr; }
-    .product-grid { grid-template-columns: 1fr; }
-    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .hero-stats { gap: 16px; }
-    .stat-num { font-size: 1.1rem; }
-    .how-section { padding: 28px 20px; }
+    .trust-row { grid-template-columns: 1fr; gap: 12px; }
+    .product-grid { grid-template-columns: 1fr; gap: 16px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+    
+    .hero-banner { padding: 32px 20px; border-radius: 16px; margin: 10px 0 24px; }
+    .hero-title { font-size: 1.6rem; letter-spacing: -0.5px; }
+    .hero-sub { font-size: 0.9rem; margin-bottom: 20px; }
+    .hero-stats { gap: 14px; justify-content: space-between; width: 100%; }
+    .stat-num { font-size: 1rem; }
+    .stat-label { font-size: 0.68rem; }
+    
+    .product-card { border-radius: 14px; }
+    .product-image-wrap { height: 160px; }
+    .product-info { padding: 14px; }
+    .product-name { font-size: 0.92rem; margin-bottom: 6px; }
+    .product-price { font-size: 1.15rem; }
+    .product-buy-btn { padding: 12px 0; border-radius: 8px; font-size: 0.88rem; }
+    
+    .how-section { padding: 32px 16px; border-radius: 16px; }
+    .steps-row { gap: 24px; }
+    .step-item { max-width: 100%; }
 }
 </style>

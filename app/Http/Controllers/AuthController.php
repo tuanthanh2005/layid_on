@@ -58,7 +58,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/admin')->with('success', 'Chào mừng bạn! Tài khoản đã được tạo thành công.');
+        return redirect('/')->with('success', 'Chào mừng bạn! Tài khoản đã được tạo thành công.');
     }
 
     public function logout(Request $request)

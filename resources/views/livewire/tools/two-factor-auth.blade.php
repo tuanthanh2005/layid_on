@@ -176,6 +176,59 @@
     .animate-fade-in {
         animation: fadeIn 0.4s ease-out forwards;
     }
+
+    /* Mobile Fine-tuning */
+    @media (max-width: 768px) {
+        .py-5 { padding-top: 1rem !important; padding-bottom: 5rem !important; }
+        .display-6 { font-size: 1.4rem; }
+        .tool-header p { font-size: 0.85rem; }
+        .card-body { padding: 1.25rem !important; }
+        .tool-icon-circle { width: 50px; height: 50px; font-size: 1.2rem; margin-bottom: 1rem !important; }
+        
+        .form-label { flex-direction: column !important; align-items: flex-start !important; gap: 2px; }
+        .form-label span { font-size: 0.85rem; }
+        .form-label small { font-size: 0.75rem !important; margin-bottom: 5px; opacity: 0.7; }
+        
+        .form-control-2fa { font-size: 0.9rem !important; padding: 12px !important; }
+        
+        .btn-lg { 
+            width: 100%; 
+            padding: 12px !important; 
+            font-size: 1rem !important;
+            border-radius: 10px !important;
+        }
+
+        .results-container { 
+            min-height: 80px !important; 
+            padding: 8px !important;
+        }
+        
+        .results-container .d-flex {
+            padding: 10px !important;
+            border-radius: 10px !important;
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 10px;
+        }
+        
+        .results-container .d-flex .d-flex {
+            width: 100%;
+            justify-content: space-between !important;
+            flex-direction: row !important;
+            padding: 0 !important;
+        }
+
+        .results-container .fs-4 {
+            font-size: 1.2rem !important;
+        }
+        
+        .text-truncate {
+            max-width: 100% !important;
+            font-size: 0.75rem !important;
+        }
+
+        hr.my-5 { margin: 2rem 0 !important; }
+    }
 </style>
 
 <script>
