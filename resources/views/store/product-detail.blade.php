@@ -47,7 +47,7 @@
                     </div>
 
                     @if($product->description)
-                    <p class="pd-desc">{{ $product->description }}</p>
+                    <div class="pd-desc">{!! nl2br(e($product->description)) !!}</div>
                     @endif
 
                     {{-- Trust badges --}}
@@ -271,8 +271,9 @@
 .pd-rating-text { font-size: 0.82rem; color: #6b7280; }
 
 .pd-desc {
-    font-size: 0.95rem; color: #4b5563; line-height: 1.7;
-    margin-bottom: 18px;
+    font-size: 0.95rem; color: #4b5563; line-height: 1.8;
+    margin-bottom: 24px;
+    white-space: pre-line;
 }
 
 .pd-trust-grid {
