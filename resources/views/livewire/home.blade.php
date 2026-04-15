@@ -636,35 +636,32 @@
    ============================================= */
 @media (max-width: 900px) {
     .trust-row { grid-template-columns: repeat(2, 1fr); }
-    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .hero-banner { flex-direction: column; padding: 36px 24px; }
     .hero-visual { display: none; }
     .hero-title { font-size: 1.8rem; }
-    .steps-row { flex-wrap: wrap; }
-    .step-arrow { display: none; }
 }
 
 @media (max-width: 600px) {
-    .trust-row { grid-template-columns: 1fr; gap: 12px; }
-    .product-grid { grid-template-columns: 1fr; gap: 16px; }
-    .section-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+    .trust-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .section-header { margin-bottom: 16px; }
+    .section-heading { font-size: 1.25rem; }
     
-    .hero-banner { padding: 32px 20px; border-radius: 16px; margin: 10px 0 24px; }
-    .hero-title { font-size: 1.6rem; letter-spacing: -0.5px; }
-    .hero-sub { font-size: 0.9rem; margin-bottom: 20px; }
-    .hero-stats { gap: 14px; justify-content: space-between; width: 100%; }
-    .stat-num { font-size: 1rem; }
-    .stat-label { font-size: 0.68rem; }
+    .hero-banner { padding: 24px 16px; border-radius: 12px; }
+    .stat-num { font-size: 0.9rem; }
     
-    .product-card { border-radius: 14px; }
-    .product-image-wrap { height: 160px; }
-    .product-info { padding: 14px; }
-    .product-name { font-size: 0.92rem; margin-bottom: 6px; }
-    .product-price { font-size: 1.15rem; }
-    .product-buy-btn { padding: 12px 0; border-radius: 8px; font-size: 0.88rem; }
+    .product-card { border-radius: 12px; }
+    .product-image-wrap { height: 110px; }
+    .product-badge { top: 6px; left: 6px; font-size: 0.6rem; padding: 2px 8px; }
+    .product-info { padding: 10px; }
+    .product-name { font-size: 0.82rem; height: 2.4em; margin-bottom: 4px; }
+    .product-price { font-size: 1rem; }
+    .product-original { font-size: 0.7rem; }
+    .product-meta { display: none; }
+    .product-buy-btn { font-size: 0.75rem; padding: 8px 0; border-radius: 6px; }
     
-    .how-section { padding: 32px 16px; border-radius: 16px; }
-    .steps-row { gap: 24px; }
-    .step-item { max-width: 100%; }
+    .how-section { padding: 24px 12px; }
+    .step-icon { width: 50px; height: 50px; font-size: 1.2rem; }
 }
 </style>
