@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --sidebar-width: 260px;
@@ -324,6 +326,18 @@
 
                 <li class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.orders.index') }}"><i data-lucide="clipboard-list" size="18"></i> Quản lý đơn hàng</a>
+                </li>
+
+                <li class="menu-item {{ request()->routeIs('admin.support-chat') ? 'active' : '' }}">
+                    <a href="{{ route('admin.support-chat') }}" class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <i data-lucide="message-circle" size="18"></i> Hỗ trợ Trực tuyến
+                        </div>
+                        @php $chatUnreadCount = \App\Models\SupportMessage::where('is_admin', false)->where('is_read', false)->count(); @endphp
+                        @if($chatUnreadCount > 0)
+                            <span class="badge rounded-pill bg-danger" style="position: static; font-size: 10px; padding: 3px 6px;">{{ $chatUnreadCount }}</span>
+                        @endif
+                    </a>
                 </li>
 
                 <li class="menu-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">

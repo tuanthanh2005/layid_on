@@ -1,16 +1,16 @@
-<div class="container-fluid py-4 h-100" style="min-height: calc(100vh - 80px);">
-    <div class="row g-0 h-100 border rounded-4 shadow-sm bg-white overflow-hidden" style="max-height: 85vh;">
+<div class="container-fluid py-4" style="height: calc(100vh - 100px);">
+    <div class="row g-0 rounded-4 shadow-sm bg-white overflow-hidden" style="height: 100%;">
         
         <!-- Sidebar Danh sách Chat -->
-        <div class="col-md-4 col-lg-3 border-end h-100 d-flex flex-column" style="background:#f8fafc;">
-            <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white shadow-sm" style="z-index:10;">
-                <h5 class="m-0 fw-bold text-dark"><i class="fa-solid fa-headset text-primary me-2"></i> Hỗ trợ trực tuyến</h5>
-                <button wire:click="$refresh" class="btn btn-sm btn-light border" title="Làm mới">
+        <div class="col-md-4 col-lg-3 border-end d-flex flex-column" style="background:#f8fafc; height: 100%;">
+            <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white" style="height: 70px;">
+                <h5 class="m-0 fw-bold text-dark"><i class="fa-solid fa-headset text-primary me-2"></i> Hỗ trợ</h5>
+                <button wire:click="$refresh" class="btn btn-sm btn-light border">
                     <i class="fa-solid fa-rotate-right"></i>
                 </button>
             </div>
             
-            <div class="overflow-auto flex-grow-1" wire:poll.3s="loadLatestData">
+            <div class="flex-grow-1 overflow-auto" wire:poll.5s="loadLatestData">
                 @forelse($chats as $chat)
                 <div class="p-3 border-bottom {{ $activeSessionId === $chat->session_id ? 'bg-primary-subtle border-primary border-start border-4' : 'hover-bg-light transition-all cursor-pointer' }}"
                      wire:click="selectSession('{{ $chat->session_id }}')" style="cursor: pointer;">
@@ -48,10 +48,10 @@
         </div>
 
         <!-- Khung Chat Chính -->
-        <div class="col-md-8 col-lg-9 h-100 d-flex flex-column bg-white position-relative">
+        <div class="col-md-8 col-lg-9 d-flex flex-column bg-white" style="height: 100%;">
             @if($activeSessionId)
                 <!-- Chat Header -->
-                <div class="p-3 border-bottom bg-white shadow-sm d-flex justify-content-between align-items-center" style="z-index:10;">
+                <div class="p-3 border-bottom bg-white d-flex justify-content-between align-items-center" style="height: 70px;">
                     <div class="d-flex align-items-center gap-3">
                         <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center" style="width:45px; height:45px;">
                             <i class="fa-solid fa-user fa-lg"></i>

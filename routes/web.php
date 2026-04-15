@@ -30,6 +30,7 @@ Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show']
 
 // Tool Routes
 Route::get('/tools/2fa', \App\Livewire\Tools\TwoFactorAuth::class)->name('tools.2fa');
+Route::get('/chat', \App\Livewire\Chat\UserChat::class)->name('chat.show');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');

@@ -88,10 +88,28 @@
                     @endauth
                 </a>
 
+                <!-- Support Chat Link -->
+                @php
+                    $sessionId = Auth::check() ? 'user_'.Auth::id() : Session::get('support_chat_session_id');
+                    $userUnread = $sessionId ? \App\Models\SupportMessage::where('session_id', $sessionId)->where('is_admin', true)->where('is_read', false)->count() : 0;
+                @endphp
+                <a href="{{ route('chat.show') }}" class="chat-menu-link" style="text-decoration:none; color: var(--text-primary); margin-right: 15px; font-size: 1.2rem; position: relative; display: flex; align-items: center;" title="Chat với Admin">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    @if($userUnread > 0)
+                        <span class="badge rounded-pill bg-danger" style="position: absolute; top: -10px; right: -12px; font-size: 0.65rem;">{{ $userUnread }}</span>
+                    @endif
+                </a>
+
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" style="color: var(--accent-primary); margin-right: 15px; font-weight: bold; align-self: center; text-decoration: none;">
-                            <i class="fa-solid fa-user-shield"></i> Quản trị viên
+                        @php 
+                            $chatUnread = \App\Models\SupportMessage::where('is_admin', false)->where('is_read', false)->count(); 
+                        @endphp
+                        <a href="{{ route('admin.dashboard') }}" style="color: var(--accent-primary); margin-right: 15px; font-weight: bold; align-self: center; text-decoration: none; position: relative;">
+                            <i class="fa-solid fa-user-shield"></i> Quản trị
+                            @if($chatUnread > 0)
+                                <span class="badge rounded-pill bg-danger" style="position: absolute; top: -10px; right: -15px; font-size: 0.65rem;">{{ $chatUnread }}</span>
+                            @endif
                         </a>
                     @else
                         <a href="{{ route('profile.index') }}" style="color: var(--accent-primary); margin-right: 15px; font-weight: bold; align-self: center; text-decoration: none;">
@@ -231,9 +249,12 @@
                 <i class="fa-solid fa-screwdriver-wrench"></i>
                 <span>Công cụ</span>
             </a>
-            <a wire:navigate href="{{ route('orders.index') }}" class="bottom-nav-item {{ request()->is('orders*') ? 'active' : '' }}">
-                <i class="fa-solid fa-user"></i>
-                <span>Đơn hàng</span>
+            <a wire:navigate href="{{ route('chat.show') }}" class="bottom-nav-item {{ request()->is('chat*') ? 'active' : '' }}">
+                <i class="fa-solid fa-comment-dots"></i>
+                @if($userUnread > 0)
+                    <span class="badge rounded-pill bg-danger" style="position: absolute; top: 10px; right: 15px; font-size: 0.6rem; padding: 2px 4px;">{{ $userUnread }}</span>
+                @endif
+                <span>Hỗ trợ</span>
             </a>
         </div>
     </div>
