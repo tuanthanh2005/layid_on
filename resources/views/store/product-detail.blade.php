@@ -175,11 +175,25 @@
     </div>
 </div>
 
+    {{-- Floating Sticky Bottom Bar (Mobile Only) --}}
+    <div class="pd-mobile-bottom-bar d-md-none border-top shadow-lg">
+        <div class="d-flex align-items-center justify-content-between h-100">
+            <div class="pd-mb-price-wrap">
+                <div class="pd-mb-label text-muted">Giá bán:</div>
+                <div class="pd-mb-price text-danger fw-bold">{{ number_format($product->price) }}đ</div>
+            </div>
+            <a href="{{ route('store.checkout', $product->slug) }}" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm">
+                <i class="fa-solid fa-cart-shopping me-2"></i> Mua ngay
+            </a>
+        </div>
+    </div>
+</div>
+
 <style>
 /* ==============================================
    PRODUCT DETAIL PAGE — PREMIUM
    ============================================== */
-.pd-wrapper { max-width: 1100px; margin: 0 auto; padding: 0 16px 60px; }
+.pd-wrapper { max-width: 1100px; margin: 0 auto; padding: 0 16px 100px; }
 
 /* Breadcrumb */
 .pd-breadcrumb {
@@ -417,10 +431,18 @@
 .pd-share-btn.fb:hover { background: #1877f2; border-color: #1877f2; color: #fff; }
 .pd-share-btn.tg:hover { background: #0088cc; border-color: #0088cc; color: #fff; }
 
+.pd-mobile-bottom-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: 80px; background: #fff; z-index: 1000;
+    padding: 0 20px;
+}
+.pd-mb-price { font-size: 1.2rem; }
+.pd-mb-label { font-size: 0.72rem; margin-bottom: -2px; }
+
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
     .pd-layout { grid-template-columns: 1fr; }
-    .pd-sidebar { position: static; }
+    .pd-sidebar { display: none; }
     .pd-features-grid { grid-template-columns: 1fr; }
     .pd-related-grid { grid-template-columns: repeat(2, 1fr); }
     .pd-trust-grid { grid-template-columns: repeat(2, 1fr); }
@@ -429,7 +451,10 @@
     .pd-related-grid { grid-template-columns: 1fr; }
     .pd-hero-body { padding: 16px; }
     .pd-title { font-size: 1.3rem; }
-    .pd-section { padding: 20px; }
+    .pd-section { padding: 20px; border-radius: 16px; }
+    .pd-breadcrumb { font-size: 0.75rem; margin-bottom: 16px; }
+    .pd-trust-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .pd-trust-item { font-size: 0.72rem; padding: 6px 10px; }
 }
 </style>
 @endsection
