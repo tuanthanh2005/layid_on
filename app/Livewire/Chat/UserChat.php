@@ -50,13 +50,20 @@ class UserChat extends Component
     {
         if (trim($this->message) === '') return;
 
-        SupportMessage::create([
+        $msg = SupportMessage::create([
             'session_id' => $this->sessionId,
             'user_id' => Auth::check() ? Auth::id() : null,
             'message' => $this->message,
             'is_admin' => false,
             'is_read' => false,
         ]);
+
+        // Gửi thông báo Telegram cho admin
+        try {
+            \App\Services\TelegramService::sendSupportMessage($msg);
+        } catch (\Exception $e) {
+            \Log::error("Lỗi gửi Telegram Chat: " . $e->getMessage());
+        }
 
         $this->message = '';
         $this->dispatch('messageSent');

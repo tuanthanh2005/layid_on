@@ -119,7 +119,7 @@
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4 d-flex align-items-center">
-                        <i data-lucide="send" class="me-2 text-primary" size="20"></i> Thông báo Telegram Admin (Đơn hàng mới)
+                        <i data-lucide="send" class="me-2 text-primary" size="20"></i> Thông báo Telegram Admin
                     </h5>
                     
                     <div class="row">
@@ -136,7 +136,7 @@
                     </div>
                     
                     <div class="alert alert-warning border-0 rounded-4 small mb-0">
-                        <i data-lucide="bell" size="16" class="me-2"></i> Hệ thống sẽ tự động nhắn tin cho bạn qua Telegram ngay khi có người dùng thanh toán/tạo đơn hàng mới.
+                        <i data-lucide="bell" size="16" class="me-2"></i> Hệ thống sẽ tự động nhắn tin cho bạn qua Telegram ngay khi có <b>Đơn hàng mới</b> hoặc <b>Khách nhắn tin hỗ trợ</b>.
                     </div>
                 </div>
             </div>

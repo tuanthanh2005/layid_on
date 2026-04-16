@@ -65,4 +65,26 @@ class TelegramService
 
         return self::notifyAdmin($msg);
     }
+
+    /**
+     * Thông báo khi có khách nhắn tin hỗ trợ
+     */
+    public static function sendSupportMessage($messageModel)
+    {
+        $user = $messageModel->user;
+        $senderName = $user ? $user->name : 'Khách vãng lai';
+        $sessionId = $messageModel->session_id;
+
+        $msg = "<b>💬 TIN NHẮN HỖ TRỢ MỚI</b>\n";
+        $msg .= "--------------------------------\n";
+        $msg .= "👤 <b>Người gửi:</b> {$senderName}\n";
+        $msg .= "🆔 <b>ID Phiên:</b> <code>{$sessionId}</code>\n";
+        $msg .= "💬 <b>Nội dung:</b>\n<i>{$messageModel->message}</i>\n";
+        $msg .= "--------------------------------\n";
+        $msg .= "📍 <b>Thời gian:</b> " . now()->format('H:i:s d/m/Y') . "\n";
+        $msg .= "--------------------------------\n";
+        $msg .= "🔗 <a href='" . url('/admin/support-chat') . "'>Trả lời khách ngay</a>";
+
+        return self::notifyAdmin($msg);
+    }
 }
